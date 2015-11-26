@@ -1,0 +1,29 @@
+{
+  "name": "reactdemo",
+  "version": "1.0.0",
+  "description": "First try of React",
+  "main": "app.jsx",
+  "dependencies": {
+    "react": "^0.14.3"
+  },
+  "devDependencies": {
+    "jsx-loader": "^0.13.2",
+    "webpack": "^1.12.9",
+    "webpack-dev-server": "^1.14.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/y_budachov/reactdemo.git"
+  },
+  "keywords": [
+    "react",
+    "demo",
+    "try"
+  ],
+  "author": "Yevhen Budachov, Sergii Kokhan",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/y_budachov/reactdemo#readme"
+}
