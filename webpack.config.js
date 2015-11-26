@@ -1,10 +1,15 @@
 var path = require('path');
+var OpenBrowserPlugin = require('open-browser-webpack-plugin');
+
 module.exports = {
     entry: './app/scripts/index.jsx',
     output: {
         path: __dirname,
         filename: "./build/bundle.js"
     },
+    plugins: [
+        new OpenBrowserPlugin({ url: 'http://localhost:8080' })
+    ],
     module: {
         loaders: [{
             test: /\.jsx?$/,
