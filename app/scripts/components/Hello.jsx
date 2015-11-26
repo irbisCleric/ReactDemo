@@ -2,9 +2,7 @@
  * Created by skok on 26.11.15.
  */
 
-/** @jsx React.DOM */
-'use strict';
-var React = require('react');
+import React from 'react'; 
 
 module.exports = React.createClass({
     displayName: 'HelloReact',

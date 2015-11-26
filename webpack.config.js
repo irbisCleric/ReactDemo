@@ -1,3 +1,4 @@
+var path = require('path');
 module.exports = {
     entry: './app/scripts/index.jsx',
     output: {
@@ -5,13 +6,15 @@ module.exports = {
         filename: "./build/bundle.js"
     },
     module: {
-        loaders: [
-            {
-                //tell webpack to use jsx-loader for all *.jsx files
-                test: /\.jsx$/,
-                loader: 'jsx-loader?insertPragma=React.DOM&harmony'
-            }
-        ]
+        loaders: [{
+            test: /\.jsx?$/,
+            loaders: ['react-hot', 'babel'],
+            exclude: /node_modules/
+        }, {
+            test: /\.jsx$/,
+            exclude: /node_modules/,
+            loader: 'babel-loader'
+        }]
     },
     externals: {
         //don't bundle the 'react' npm package with our bundle.js
