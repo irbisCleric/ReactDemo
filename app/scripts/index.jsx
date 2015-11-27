@@ -9,7 +9,6 @@ import App from './components/App';
 import Users from './components/Users';
 import User from './components/User';
 
-
 const routes = {
   path: '/',
   component: App,
