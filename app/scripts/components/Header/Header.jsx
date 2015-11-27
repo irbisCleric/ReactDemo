@@ -1,7 +1,8 @@
 /**
  * Created by skok on 27.11.15.
  */
-import { Link } from 'react-router';
+import { Router, Route, Link } from 'react-router';
+import './Header.scss';
 
 export default class Header extends React.Component {
   render() {
@@ -11,7 +12,7 @@ export default class Header extends React.Component {
       
           <div className="button-group">
               <Link to="/" className="button">Home</Link>
-              <Link to="/users" className="button">Users</Link>              
+              <Link to="/users" className="button" activeClassName='active'>Users</Link>              
           </div>
       </div>
     )

@@ -8,14 +8,21 @@ import { createHistory, useBasename } from 'history';
 import App from './components/App';
 import Users from './components/Users';
 import User from './components/User';
+import NotFound from './components/NotFound';
 
 const routes = {
   path: '/',
   component: App,
   childRoutes: [
     { path: 'users', component: Users },
-    { path: 'users/:id', component: User }
+    { path: 'users/:id', component: User },
+    { path: '*', component: NotFound }
   ]
 }
 
-render(<Router routes={routes} />, document.getElementById('content'));
+window.onload = function() {
+	render(
+		<Router routes={routes} />,
+		document.getElementById('app'));
+};
+

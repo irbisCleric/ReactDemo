@@ -1,7 +1,7 @@
 import $ from 'jQuery';
 
 export default class User extends React.Component {
-     constructor(props) {
+    constructor(props) {
         super(props);
         this.state = {user: {}};
         let url = "http://www.filltext.com/?rows=1&description={lorem|20}&name={firstName}&age={number|80}&phone={phone}";
