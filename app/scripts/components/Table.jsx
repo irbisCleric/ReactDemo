@@ -1,5 +1,7 @@
 import $ from 'jQuery';
 import { Link } from 'react-router';
+import If from './helpers/If';
+
 export default class Table extends React.Component {
     constructor(props) {
         super(props);        
@@ -13,30 +15,36 @@ export default class Table extends React.Component {
     render() {     
         return (
             <table className="medium-12 hover">
-                    <thead>
-                        <tr>  
-                            {this.props.tableTitles.map((title, i) => {
-                              return (                                                                
-                                <th key={i}>{title}</th>                                                                             
-                              );
-                            })}
-                        </tr>   
-                    </thead>
-                    <tbody>     
-                        {this.props.tableData.map((user, i) => {
-                          return (   
-                           <tr key={i}>                                
-                                <td key={i}>
-                                    <Link to={"users/"+user.id}>{user.id}</Link>                               
-                                </td>
-                                <td key={i+'test'}>
-                                <Link to={"users/"+user.id} params={{name:'test'}}>{user.name}</Link>                               
-                                </td>                                
-                            </tr>                                                
+                <thead>
+                    <tr>  
+                        <If test={this.props.tableOptions.delete}>
+                            <th>Delete</th>
+                        </If> 
+                        {this.props.tableTitles.map((title, i) => {
+                          return (                                                                
+                            <th key={i}>{title}</th>                                                                             
                           );
                         })}
-                    </tbody> 
-                </table>
+                    </tr>   
+                </thead>
+                <tbody>     
+                    {this.props.tableData.map((user, i) => {
+                      return (   
+                       <tr key={i}> 
+                            <If test={this.props.tableOptions.delete}>
+                                <td><button onClick={this.props.tableOptions.deleteFunc.bind(this, i)}>x</button></td>
+                            </If>                                
+                            <td key={i}>
+                                <Link to={"users/"+user.id}>{user.id}</Link>                               
+                            </td>
+                            <td key={i+'test'}>
+                            <Link to={"users/"+user.id} params={{name:'test'}}>{user.name}</Link>                               
+                            </td>                                
+                        </tr>                                                
+                      );
+                    })}
+                </tbody> 
+            </table>
         )
     }   
 };
