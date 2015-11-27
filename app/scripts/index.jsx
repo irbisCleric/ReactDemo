@@ -6,13 +6,17 @@ import { Router, Route, Link } from 'react-router';
 import { createHistory, useBasename } from 'history';
 
 import App from './components/App';
-import TableUsers from './components/TableUsers';
+import Users from './components/Users';
+import User from './components/User';
 
 
-render((
-  <Router>
-    <Route path="/" component={App}>
-      <Route path="users" component={TableUsers} />
-    </Route>
-  </Router>
-), document.getElementById('content'));
+const routes = {
+  path: '/',
+  component: App,
+  childRoutes: [
+    { path: 'users', component: Users },
+    { path: 'users/:id', component: User }
+  ]
+}
+
+render(<Router routes={routes} />, document.getElementById('content'));
