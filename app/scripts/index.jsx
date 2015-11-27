@@ -6,6 +6,8 @@ import Hello from './components/Hello';
 import TableUsers from './components/TableUsers';
 import TopMenu from './components/Menu';
 
+import { Router, Route, Link } from 'react-router'
+
 var MainModule = React.createClass({
     render: function () {
         return (
