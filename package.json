@@ -4,7 +4,6 @@
   "description": "First try of React",
   "main": "app.jsx",
   "dependencies": {
-    "extract-text-webpack-plugin": "^0.9.1",
     "foundation-sites": "^6.0.4",
     "react": "^0.14.3",
     "react-dom": "^0.14.3"
