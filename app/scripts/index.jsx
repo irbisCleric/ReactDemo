@@ -1,16 +1,22 @@
 require('./../styles/foundation/foundation.min.css');
 
 import React from 'react';
-import ReactDOM from 'react-dom';  
+import ReactDOM from 'react-dom';
 import Hello from './components/Hello';
 import TableUsers from './components/TableUsers';
+import TopMenu from './components/Menu';
 
 var MainModule = React.createClass({
-    render: function() {
+    render: function () {
         return (
-            <div className="row">
-                <Hello className="medium-6 column" />
-                <TableUsers className="medium-6 column" />
+            <div>
+                <div className="row">
+                    <TopMenu/>
+                </div>
+                <div className="row">
+                    <Hello className="medium-6 column"/>
+                    <TableUsers className="medium-6 column"/>
+                </div>
             </div>
         );
     }

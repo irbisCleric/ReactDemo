@@ -7,22 +7,22 @@ export default React.createClass({
     render: function () {
         return (
             <div className={this.props.className}>
-                <table className="hover">
+                <table className="medium-12 hover">
                     <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>User</th>
-                        </tr>
+                    <tr>
+                        <th>ID</th>
+                        <th>User</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>2</td>
-                            <td>Bob</td>
-                        </tr>
-                        <tr>
-                            <td>662</td>
-                            <td>John</td>
-                        </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Bob</td>
+                    </tr>
+                    <tr>
+                        <td>662</td>
+                        <td>John</td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
