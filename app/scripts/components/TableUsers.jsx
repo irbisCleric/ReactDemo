@@ -2,13 +2,11 @@
  * Created by skok on 26.11.15.
  */
 
-import React from 'react';
-
 export default React.createClass({
     displayName: 'TableUsers',
     render: function () {
         return (
-            <div>
+            <div className={this.props.className}>
                 <table className="hover">
                     <thead>
                         <tr>
