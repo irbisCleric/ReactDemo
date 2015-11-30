@@ -13,6 +13,7 @@ export default class Header extends React.Component {
           <div className="button-group">
               <Link to="/" className="button">Home</Link>
               <Link to="/users" className="button" activeClassName='active'>Users</Link>              
+              <Link to="/create-user" className="button" activeClassName='active'>Create User</Link>              
           </div>
       </div>
     )

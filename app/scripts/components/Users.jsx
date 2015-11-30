@@ -8,16 +8,15 @@ import Table from './Table';
 export default class Users extends React.Component {
     constructor(props) {
         super(props);
-        let self = this;
         this.state = {
             tableTitles: ['Id', 'name'],
             tableData: [], //Users
             tableOptions: {
                 delete: true,
-                deleteFunc: function(index){
-                    let newData = self.state.tableData.slice(); //copy array
+                deleteFunc: (index) => {
+                    let newData = this.state.tableData.slice(); //copy array
                     newData.splice(index, 1); //remove element
-                    self.setState({tableData: newData});
+                    this.setState({tableData: newData});
                 }
             }
         };
