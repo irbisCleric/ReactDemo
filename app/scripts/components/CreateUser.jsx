@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import usersActions from '../actions/usersActions';
-import usersStores from '../stores/usersStores';
+import usersStore from '../stores/usersStore';
 export default class CreateUser extends React.Component {
     constructor(props) {
         super(props);

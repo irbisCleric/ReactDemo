@@ -5,7 +5,7 @@ import $ from 'jquery';
 import { Link } from 'react-router';
 import Table from './Table';
 import usersActions from '../actions/usersActions';
-import usersStores from '../stores/usersStores';
+import usersStore from '../stores/usersStore';
 
 export default class Users extends React.Component {
     constructor(props) {
@@ -24,17 +24,17 @@ export default class Users extends React.Component {
     }  
 
     componentDidMount(){
-        usersStores.getHttpAll()
-        this.setState({tableData:usersStores.getAll()});
-        usersStores.addChangeListener(this._onChange.bind(this));
+        usersStore.getHttpAll()
+        this.setState({tableData:usersStore.getAll()});
+        usersStore.addChangeListener(this._onChange.bind(this));
     } 
 
     componentWillUnmount(){
-        usersStores.removeChangeListener(this._onChange.bind(this));
+        usersStore.removeChangeListener(this._onChange.bind(this));
     } 
 
     _onChange(){
-        this.setState({tableData:usersStores.getAll()});
+        this.setState({tableData:usersStore.getAll()});
     }
 
     render() {     
