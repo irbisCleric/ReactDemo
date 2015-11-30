@@ -1,4 +1,4 @@
-import $ from 'jQuery';
+import $ from 'jquery';
 import { Link } from 'react-router';
 import If from './helpers/If';
 

@@ -1,4 +1,4 @@
-import $ from 'jQuery';
+import $ from 'jquery';
 
 export default class User extends React.Component {
     constructor(props) {

@@ -1,7 +1,7 @@
 /**
  * Created by skok on 26.11.15.
  */
-import $ from 'jQuery';
+import $ from 'jquery';
 import { Link } from 'react-router';
 import Table from './Table';
 
