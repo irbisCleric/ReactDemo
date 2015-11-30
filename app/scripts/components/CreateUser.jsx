@@ -1,26 +1,28 @@
 import $ from 'jquery';
-
+import usersActions from '../actions/usersActions';
+import usersStores from '../stores/usersStores';
 export default class CreateUser extends React.Component {
     constructor(props) {
         super(props);
-        console.log(props)
         this.state = {
             user: {}
         };        
     }    
-    
+
     handleChange(e) {
         this.state.user[e.target.name] = e.target.value;
-        this.setState({user: user});
+        this.setState({user: this.state.user});
     }
 
     handleSubmit(e) {
         e.preventDefault();
+        usersActions.addUser(this.state.user);
         this.setState({user: {}});
+        this.props.history.pushState(null, 'users');
     }
 
     render() {  
-        let value = this.state.value   
+        let value = this.state.value;   
         return (
             <div>                
                 <form onSubmit={this.handleSubmit.bind(this)}>

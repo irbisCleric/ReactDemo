@@ -4,25 +4,38 @@
 import $ from 'jquery';
 import { Link } from 'react-router';
 import Table from './Table';
+import usersActions from '../actions/usersActions';
+import usersStores from '../stores/usersStores';
 
 export default class Users extends React.Component {
     constructor(props) {
         super(props);
+        
         this.state = {
             tableTitles: ['Id', 'name'],
             tableData: [], //Users
             tableOptions: {
                 delete: true,
-                deleteFunc: (index) => {
-                    let newData = this.state.tableData.slice(); //copy array
-                    newData.splice(index, 1); //remove element
-                    this.setState({tableData: newData});
+                deleteFunc: (index) => {                    
+                    usersActions.deleteUser(index);
                 }
             }
-        };
-        let url = "http://www.filltext.com/?rows=10&id={index}&name={firstName}";
-        $.get(url, (result) => this.setState({tableData:result}));
-    }    
+        };        
+    }  
+
+    componentDidMount(){
+        usersStores.getHttpAll()
+        this.setState({tableData:usersStores.getAll()});
+        usersStores.addChangeListener(this._onChange.bind(this));
+    } 
+
+    componentWillUnmount(){
+        usersStores.removeChangeListener(this._onChange.bind(this));
+    } 
+
+    _onChange(){
+        this.setState({tableData:usersStores.getAll()});
+    }
 
     render() {     
         return (
