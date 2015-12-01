@@ -12,7 +12,7 @@ export default class Users extends React.Component {
         super(props);
 
         this.state = {
-            tableTitles: ['Id', 'name'],
+            tableTitles: ['email', 'name'],
             tableData: [], //Users
             tableOptions: {
                 delete: true,
