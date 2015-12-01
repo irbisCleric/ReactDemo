@@ -1,18 +1,37 @@
 import $ from 'jquery';
 import { Link } from 'react-router';
 import If from './helpers/If';
+import { Button, Modal } from 'react-bootstrap';
 
 export default class Table extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            showModal: false,
+            currentUserIndex: null,
+            currentUser: {}
+        };
     }
 
-    componentWillUpdate() {
-        console.log('Component will update');
+    close() {
+        this.setState({
+            showModal: false,
+            currentUserIndex: null,
+            currentUser: {}
+        });
     }
 
-    componentDidUpdate() {
-        // this.props.tableTitles = Object.keys(this.props.tableData[0]);     
+    confirm() {
+        this.props.tableOptions.deleteFunc(this.state.currentUserIndex);
+        this.close();
+    }
+
+    open(i, user) {
+        this.setState({
+            showModal: true,
+            currentUserIndex: i,
+            currentUser: user
+        });
     }
 
     render() {
@@ -38,7 +57,7 @@ export default class Table extends React.Component {
                                     <tr key={i}>
                                         <If test={this.props.tableOptions.delete}>
                                             <td>
-                                                <button onClick={this.props.tableOptions.deleteFunc.bind(this, i)}>x</button>
+                                                <Button onClick={this.open.bind(this, i, user)}>Delete</Button>
                                             </td>
                                         </If>
                                         <td key={i}>
@@ -56,6 +75,25 @@ export default class Table extends React.Component {
 
                 <If test={!this.props.tableData.length}>
                     <h2>No users</h2>
+                </If>
+
+                <If test={this.state.showModal}>
+                    <div className="static-modal">
+                        <Modal.Dialog show={this.state.showModal}>
+                            <Modal.Header>
+                                <Modal.Title>Delete user</Modal.Title>
+                            </Modal.Header>
+
+                            <Modal.Body>
+                                Are you sure, you want to delete {this.state.currentUser.name} ?
+                            </Modal.Body>
+
+                            <Modal.Footer>
+                                <Button onClick={this.close.bind(this)}>No</Button>
+                                <Button onClick={this.confirm.bind(this)} bsStyle="primary">Yes</Button>
+                            </Modal.Footer>
+                        </Modal.Dialog>
+                    </div>
                 </If>
             </div>
         )
