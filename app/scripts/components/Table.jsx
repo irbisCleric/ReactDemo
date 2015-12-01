@@ -17,39 +17,47 @@ export default class Table extends React.Component {
 
     render() {
         return (
-            <table className="table table-bordered col-lg-12">
-                <thead>
-                    <tr>
-                        <If test={this.props.tableOptions.delete}>
-                            <th>Delete</th>
-                        </If>
-                        {this.props.tableTitles.map((title, i) => {
-                            return (
-                                <th key={i}>{title}</th>
-                            );
-                        })}
-                    </tr>
-                </thead>
-                <tbody>
-                    {this.props.tableData.map((user, i) => {
-                        return (
-                            <tr key={i}>
+            <div>
+                <If test={this.props.tableData.length}>
+                    <table className="table table-bordered col-lg-12">
+                        <thead>
+                            <tr>
                                 <If test={this.props.tableOptions.delete}>
-                                    <td>
-                                        <button onClick={this.props.tableOptions.deleteFunc.bind(this, i)}>x</button>
-                                    </td>
+                                    <th>Delete</th>
                                 </If>
-                                <td key={i}>
-                                    <Link to={"users/" + user.id}>{user.id}</Link>
-                                </td>
-                                <td key={i + 'test'}>
-                                    <Link to={"users/" + user.id} params={{name: 'test'}}>{user.name}</Link>
-                                </td>
+                                {this.props.tableTitles.map((title, i) => {
+                                    return (
+                                        <th key={i}>{title}</th>
+                                    );
+                                })}
                             </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
+                        </thead>
+                        <tbody>
+                            {this.props.tableData.map((user, i) => {
+                                return (
+                                    <tr key={i}>
+                                        <If test={this.props.tableOptions.delete}>
+                                            <td>
+                                                <button onClick={this.props.tableOptions.deleteFunc.bind(this, i)}>x</button>
+                                            </td>
+                                        </If>
+                                        <td key={i}>
+                                            <Link to={"users/" + user.id}>{user.id}</Link>
+                                        </td>
+                                        <td key={i + 'test'}>
+                                            <Link to={"users/" + user.id} params={{name: 'test'}}>{user.name}</Link>
+                                        </td>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                    </table>
+                </If>
+
+                <If test={!this.props.tableData.length}>
+                    <h2>No users</h2>
+                </If>
+            </div>
         )
     }
 }

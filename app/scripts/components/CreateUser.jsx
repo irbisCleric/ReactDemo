@@ -52,4 +52,3 @@ export default class CreateUser extends React.Component {
         )
     }
 }
-;

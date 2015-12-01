@@ -18,15 +18,14 @@ export default class Users extends React.Component {
                 delete: true,
                 deleteFunc: (index) => {
                     usersActions.deleteUser(index);
+                    this._onChange();
                 }
             }
         };
     }
 
     componentDidMount() {
-        usersStore.getHttpAll()
         this.setState({tableData: usersStore.getAll()});
-        usersStore.addChangeListener(this._onChange.bind(this));
     }
 
     componentWillUnmount() {
