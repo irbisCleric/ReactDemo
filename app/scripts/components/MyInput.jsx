@@ -7,7 +7,9 @@ var MyInput = React.createClass({
     // turn will validate it and the rest of the form
     changeValue: function (event) {
         this.setValue(event.currentTarget.value);
-        this.props.change(event)
+        if(this.props.change){
+            this.props.change(event)
+        }
     },
     render: function () {
 
@@ -16,15 +18,20 @@ var MyInput = React.createClass({
         // when the value is empty and the required prop is
         // passed to the input. showError() is true when the
         // value typed is invalid
-        var className = this.showRequired() ? 'required' : this.showError() ? 'error' : null;
+        var className = this.showRequired() ? 'required' : this.showError() ? 'has-error' : null;
 
         // An error message is returned ONLY if the component is invalid
         // or the server has returned an error message
         var errorMessage = this.getErrorMessage();
 
         return (
-            <div className={className}>
-                <input type="text" onChange={this.changeValue} value={this.getValue()} name={this.props.name}/>
+            <div className={'form-group ' + className}>
+                <input type="text"
+                    onChange={this.changeValue}
+                    value={this.getValue()}
+                    name={this.props.name}
+                    className='form-control'
+                />
                 <span>{errorMessage}</span>
             </div>
         );

@@ -37,7 +37,8 @@ export default class CreateUser extends React.Component {
     render() {
         return (
             <Formsy.Form onValidSubmit={this.handleSubmit.bind(this)} onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
-                <MyInput name="name" validationError="Some error" change={this.handleChange.bind(this)} required/>
+                <MyInput name="name" validationError="This field is required" change={this.handleChange.bind(this)} required/>
+                <MyInput name="email" validations="isEmail" validationError="Please, enter valid email" required/>
                 <button className="btn btn-submit" type="submit" disabled={!this.state.canSubmit}>Submit</button>
             </Formsy.Form>
         )
