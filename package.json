@@ -5,6 +5,7 @@
   "main": "app.jsx",
   "dependencies": {
     "flux": "^2.1.1",
+    "formsy-react": "^0.17.0",
     "history": "^1.13.1",
     "jquery": "^2.1.4",
     "keymirror": "^0.1.1",
