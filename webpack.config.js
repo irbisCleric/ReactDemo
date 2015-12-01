@@ -3,9 +3,9 @@ var OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
 module.exports = {
     entry: [
-      'webpack-dev-server/client?http://localhost:8080/', // WebpackDevServer host and port
-      'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
-      './app/scripts/index.jsx' // Your appʼs entry point
+        'webpack-dev-server/client?http://localhost:8080/', // WebpackDevServer host and port
+        'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
+        './app/scripts/index.jsx' // Your appʼs entry point
     ],
     output: {
         path: __dirname,
@@ -39,6 +39,12 @@ module.exports = {
             {
                 test: /\.css$/,
                 loader: 'style-loader!css-loader'
+            },
+
+            // ICON FONTS
+            {
+                test: /.(png|woff(2)?|eot|ttf|svg)(\?[a-z0-9=\.]+)?$/,
+                loader: 'url-loader?limit=100000'
             }
         ]
     },
