@@ -61,7 +61,7 @@ export default class Table extends React.Component {
                                             </td>
                                         </If>
                                         <td key={i}>
-                                            <Link to={"users/" + user.id}>{user.id}</Link>
+                                            <Link to={"users/" + user.id}>{user.email}</Link>
                                         </td>
                                         <td key={i + 'test'}>
                                             <Link to={"users/" + user.id} params={{name: 'test'}}>{user.name}</Link>
