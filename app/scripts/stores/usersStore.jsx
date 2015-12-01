@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import { EventEmitter } from 'events';
 import appDispatcher from '../dispatcher/appDispatcher';
-import BaseStore from './BaseStore';
+import BaseStore from './baseStore';
 import appConstants from '../constants/appConstants';
 
 class userStore extends BaseStore {
