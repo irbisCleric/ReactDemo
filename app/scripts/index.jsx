@@ -12,19 +12,19 @@ import CreateUser from './components/CreateUser';
 import NotFound from './components/NotFound';
 
 const routes = {
-  path: '/',
-  component: App,
-  childRoutes: [
-    { path: 'users', component: Users },
-    { path: 'users/:id', component: User },
-    { path: 'create-user', component: CreateUser },
-    { path: '*', component: NotFound }
-  ]
+    path: '/',
+    component: App,
+    childRoutes: [
+        {path: 'users', component: Users},
+        {path: 'users/:id', component: User},
+        {path: 'create-user', component: CreateUser},
+        {path: '*', component: NotFound}
+    ]
 }
 
-window.onload = function() {
-	render(
-		<Router routes={routes} />,
-		document.getElementById('app'));
+window.onload = function () {
+    render(
+        <Router routes={routes} />,
+        document.getElementById('app'));
 };
 

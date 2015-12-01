@@ -1,7 +1,8 @@
 import { EventEmitter } from 'events';
 import constants from '../constants/appConstants';
 
-export default class BaseStore extends EventEmitter {
+export default
+class BaseStore extends EventEmitter {
 
     constructor(...args) {
         super(...args);
@@ -22,7 +23,7 @@ export default class BaseStore extends EventEmitter {
 
     update(id, data) {
         for (let item of this.data) {
-            if(id === item._id) {
+            if (id === item._id) {
                 Object.assign(item, data);
             }
         }
@@ -42,13 +43,14 @@ export default class BaseStore extends EventEmitter {
     getById(id) {
         let result;
         for (let item of this.data) {
-            if(id === item._id) {
+            if (id === item._id) {
                 result = item;
             }
         }
 
         return result;
     }
+
     set(item) {
         if (!this.data.has(item)) {
             this.data.add(item);

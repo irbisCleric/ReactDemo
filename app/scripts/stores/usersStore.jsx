@@ -13,7 +13,7 @@ class userStore extends BaseStore {
         // TODO refactor this http first request
         return;
 
-        if (Store.users.length){
+        if (Store.users.length) {
             return;
         }
         let url = "http://www.filltext.com/?rows=10&id={index}&name={firstName}";
@@ -22,9 +22,11 @@ class userStore extends BaseStore {
             this.emitChange();
         });
     }
+
     addUser(user) {
         this.set(user);
     }
+
     deleteUser(index) {
         this.removeById(index);
     }
