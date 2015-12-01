@@ -2,7 +2,7 @@ import './../styles/css/bootstrap.min.css';
 import './../styles/css/bootstrap-theme.min.css';
 
 import React from 'react';
-import { render } from 'react-dom'
+import ReactDOM from 'react-dom'
 import { Router, Route, Link } from 'react-router';
 import { createHistory, useBasename } from 'history';
 
@@ -23,9 +23,7 @@ const routes = {
     ]
 };
 
-window.onload = function () {
-    render(
-        <Router routes={routes}/>,
-        document.getElementById('app'));
-};
 
+ReactDOM.render(
+    <Router routes={routes}/>, document.getElementById('app')
+);
