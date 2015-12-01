@@ -1,10 +1,14 @@
 import $ from 'jquery';
+import Formsy from 'formsy-react';
 import usersActions from '../actions/usersActions';
 import usersStore from '../stores/usersStore';
+import MyInput from './MyInput';
+
 export default class CreateUser extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            canSubmit: false,
             user: {}
         };
     }
@@ -15,40 +19,27 @@ export default class CreateUser extends React.Component {
     }
 
     handleSubmit(e) {
-        e.preventDefault();
+        //e.preventDefault();
         usersActions.addUser(this.state.user);
         this.setState({user: {}});
         this.props.history.pushState(null, 'users');
     }
-
+    enableButton () {
+        this.setState({
+            canSubmit: true
+        });
+    }
+    disableButton() {
+        this.setState({
+            canSubmit: false
+        });
+    }
     render() {
-        let value = this.state.value;
         return (
-            <div className="row">
-                <form role="form"
-                      className="col-lg-4"
-                      onSubmit={this.handleSubmit.bind(this)}>
-                    <div className="form-group">
-                        <input type="text"
-                               name="name"
-                               placeholder="name"
-                               className="form-control"
-                               value={this.state.user.name}
-                               onChange={this.handleChange.bind(this)} />
-                    </div>
-                    <div className="form-group">
-                        <input type="text"
-                               name="phone"
-                               placeholder="phone"
-                               value={this.state.user.phone}
-                               className="form-control"
-                               onChange={this.handleChange.bind(this)} />
-                    </div>
-                    <div className="form-group">
-                        <input type="submit" className="btn btn-default" value="Submit" />
-                    </div>
-                </form>
-            </div>
+            <Formsy.Form onValidSubmit={this.handleSubmit.bind(this)} onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
+                <MyInput name="name" validationError="Some error" change={this.handleChange.bind(this)} required/>
+                <button className="btn btn-submit" type="submit" disabled={!this.state.canSubmit}>Submit</button>
+            </Formsy.Form>
         )
     }
 }
