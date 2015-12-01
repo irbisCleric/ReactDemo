@@ -1,4 +1,5 @@
-require('./../styles/foundation/foundation.min.css');
+import './../styles/css/bootstrap.min.css';
+import './../styles/css/bootstrap-theme.min.css';
 
 import React from 'react';
 import { render } from 'react-dom'
@@ -20,11 +21,11 @@ const routes = {
         {path: 'create-user', component: CreateUser},
         {path: '*', component: NotFound}
     ]
-}
+};
 
 window.onload = function () {
     render(
-        <Router routes={routes} />,
+        <Router routes={routes}/>,
         document.getElementById('app'));
 };
 

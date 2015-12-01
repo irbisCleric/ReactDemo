@@ -17,7 +17,7 @@ export default class Table extends React.Component {
 
     render() {
         return (
-            <table className="medium-12 hover">
+            <table className="table table-bordered col-lg-12">
                 <thead>
                     <tr>
                         <If test={this.props.tableOptions.delete}>
