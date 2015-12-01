@@ -1,8 +1,7 @@
 import $ from 'jquery';
 import usersActions from '../actions/usersActions';
 import usersStore from '../stores/usersStore';
-export default
-class CreateUser extends React.Component {
+export default class CreateUser extends React.Component {
     constructor(props) {
         super(props);
         this.state = {

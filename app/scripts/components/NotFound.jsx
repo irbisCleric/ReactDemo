@@ -1,5 +1,4 @@
-export default
-class User extends React.Component {
+export default class User extends React.Component {
     render() {
         return (
             <div>
@@ -7,5 +6,4 @@ class User extends React.Component {
             </div>
         )
     }
-}
-;
+};

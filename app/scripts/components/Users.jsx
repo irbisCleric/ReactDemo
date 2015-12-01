@@ -7,8 +7,7 @@ import Table from './Table';
 import usersActions from '../actions/usersActions';
 import usersStore from '../stores/usersStore';
 
-export default
-class Users extends React.Component {
+export default class Users extends React.Component {
     constructor(props) {
         super(props);
 
@@ -46,4 +45,4 @@ class Users extends React.Component {
         )
     }
 }
-;
+

@@ -4,8 +4,7 @@
 import { Router, Route, Link } from 'react-router';
 import './Header.scss';
 
-export default
-class Header extends React.Component {
+export default class Header extends React.Component {
     render() {
         return (
             <div>

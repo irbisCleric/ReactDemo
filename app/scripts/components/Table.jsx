@@ -2,8 +2,7 @@ import $ from 'jquery';
 import { Link } from 'react-router';
 import If from './helpers/If';
 
-export default
-class Table extends React.Component {
+export default class Table extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -54,4 +53,3 @@ class Table extends React.Component {
         )
     }
 }
-;

@@ -1,7 +1,6 @@
 import $ from 'jquery';
 
-export default
-class User extends React.Component {
+export default class User extends React.Component {
     constructor(props) {
         super(props);
         this.state = {user: {}};
@@ -29,4 +28,4 @@ class User extends React.Component {
         )
     }
 }
-;
+
