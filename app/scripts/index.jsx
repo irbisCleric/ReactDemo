@@ -7,9 +7,9 @@ import { Router, Route, Link } from 'react-router';
 import { createHistory, useBasename } from 'history';
 
 import App from './components/App';
-import Users from './components/Users';
-import User from './components/User';
-import CreateUser from './components/CreateUser';
+import Users from './components/Users/Users';
+import User from './components/Users/User';
+import CreateUser from './components/Users/CreateUser';
 import NotFound from './components/NotFound';
 
 const routes = {

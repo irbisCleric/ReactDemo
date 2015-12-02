@@ -3,14 +3,13 @@
  */
 import $ from 'jquery';
 import { Link } from 'react-router';
-import Table from './Table';
-import usersActions from '../actions/usersActions';
-import usersStore from '../stores/usersStore';
+import UsersTable from './UsersTable';
+import usersActions from '../../actions/usersActions';
+import usersStore from '../../stores/usersStore';
 
 export default class Users extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
             tableTitles: ['email', 'name'],
             tableData: [], //Users
@@ -23,13 +22,8 @@ export default class Users extends React.Component {
             }
         };
     }
-
     componentDidMount() {
         this.setState({tableData: usersStore.getAll()});
-    }
-
-    componentWillUnmount() {
-        usersStore.removeChangeListener(this._onChange.bind(this));
     }
 
     _onChange() {
@@ -39,7 +33,7 @@ export default class Users extends React.Component {
     render() {
         return (
             <div className={this.props.className}>
-                <Table {...this.state}/>
+                <UsersTable {...this.state}/>
             </div>
         )
     }

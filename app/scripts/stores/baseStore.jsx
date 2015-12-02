@@ -1,8 +1,7 @@
 import { EventEmitter } from 'events';
 import constants from '../constants/appConstants';
 
-export default
-class BaseStore extends EventEmitter {
+export default class BaseStore extends EventEmitter {
 
     constructor(...args) {
         super(...args);

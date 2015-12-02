@@ -4,6 +4,8 @@ import appDispatcher from '../dispatcher/appDispatcher';
 import BaseStore from './baseStore';
 import appConstants from '../constants/appConstants';
 
+var modalData = {};
+
 class userStore extends BaseStore {
     constructor(...args) {
         super(...args);
@@ -30,6 +32,13 @@ class userStore extends BaseStore {
     deleteUser(index) {
         this.removeById(index);
     }
+    openDeleteUserModal(...data) {
+        modalData = data[0];
+        this.emitChange();
+    }
+    getDeleteUserModal() {
+        return modalData;
+    }
 }
 
 let store = new userStore();
@@ -44,6 +53,9 @@ appDispatcher.register((payload) => {
             break;
         case appConstants.USERS_GET:
             store.getHttpAll();
+            break;
+        case appConstants.OPEN_DELETE_USER_MODAL:
+            store.openDeleteUserModal(payload.data);
             break;
     }
     return true;

@@ -6,5 +6,6 @@ export default keyMirror({
     USERS_GET: null,
     USERS_ADD: null,
     USER_UPDATE: null,
-    USER_DELETE: null
+    USER_DELETE: null,
+    OPEN_DELETE_USER_MODAL: null
 });

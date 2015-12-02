@@ -18,6 +18,12 @@ export default {
             actionType: appConstants.USERS_ADD,
             user: user
         })
+    },
+    deleteUserModal: function(data){
+        appDispatcher.dispatch({
+            actionType: appConstants.OPEN_DELETE_USER_MODAL,
+            data: data
+        })
     }
 
 }

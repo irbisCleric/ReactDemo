@@ -1,8 +1,8 @@
 import $ from 'jquery';
 import Formsy from 'formsy-react';
-import usersActions from '../actions/usersActions';
-import usersStore from '../stores/usersStore';
-import MyInput from './MyInput';
+import usersActions from '../../actions/usersActions';
+import usersStore from '../../stores/usersStore';
+import MyInput from '../MyInput';
 
 export default class CreateUser extends React.Component {
     constructor(props) {
