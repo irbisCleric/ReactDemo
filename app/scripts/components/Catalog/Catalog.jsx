@@ -5,13 +5,15 @@ import $ from 'jquery';
 import { Link } from 'react-router';
 
 var ProductCategoryRow = React.createClass({
-    render: function() {
-        return (<tr><th colSpan="2">{this.props.category}</th></tr>);
+    render: function () {
+        return (<tr>
+            <th colSpan="2">{this.props.category}</th>
+        </tr>);
     }
 });
 
 var ProductRow = React.createClass({
-    render: function() {
+    render: function () {
         var name = this.props.product.stocked ?
             this.props.product.name :
             <span style={{color: 'red'}}>
@@ -27,10 +29,10 @@ var ProductRow = React.createClass({
 });
 
 var ProductTable = React.createClass({
-    render: function() {
+    render: function () {
         var rows = [];
         var lastCategory = null;
-        this.props.products.forEach(function(product) {
+        this.props.products.forEach(function (product) {
             if (product.name.indexOf(this.props.filterText) === -1 || (!product.stocked && this.props.inStockOnly)) {
                 return;
             }
@@ -43,10 +45,10 @@ var ProductTable = React.createClass({
         return (
             <table>
                 <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Price</th>
-                </tr>
+                    <tr>
+                        <th>Name</th>
+                        <th>Price</th>
+                    </tr>
                 </thead>
                 <tbody>{rows}</tbody>
             </table>
@@ -55,29 +57,25 @@ var ProductTable = React.createClass({
 });
 
 var SearchBar = React.createClass({
-    handleChange: function() {
+    handleChange: function (e) {
         this.props.onUserInput(
-            this.refs.filterTextInput.value,
-            this.refs.inStockOnlyInput.checked
+            e.target.value,
+            e.target.checked
         );
     },
-    render: function() {
+    render: function () {
         return (
             <form>
                 <input
                     type="text"
                     placeholder="Search..."
                     value={this.props.filterText}
-                    ref="filterTextInput"
-                    onChange={this.handleChange}
-                />
+                    onChange={this.handleChange} />
                 <p>
                     <input
                         type="checkbox"
                         checked={this.props.inStockOnly}
-                        ref="inStockOnlyInput"
-                        onChange={this.handleChange}
-                    />
+                        onChange={this.handleChange} />
                     {' '}
                     Only show products in stock
                 </p>
@@ -87,21 +85,21 @@ var SearchBar = React.createClass({
 });
 
 var FilterableProductTable = React.createClass({
-    getInitialState: function() {
+    getInitialState: function () {
         return {
             filterText: '',
             inStockOnly: false
         };
     },
 
-    handleUserInput: function(filterText, inStockOnly) {
+    handleUserInput: function (filterText, inStockOnly) {
         this.setState({
             filterText: filterText,
             inStockOnly: inStockOnly
         });
     },
 
-    render: function() {
+    render: function () {
         return (
             <div>
                 <SearchBar
@@ -130,9 +128,8 @@ var PRODUCTS = [
 ];
 
 export default class Catalog extends React.Component {
-
-    render () {
-        <FilterableProductTable products={PRODUCTS} />
-    };
+    render() {
+        return <FilterableProductTable products={PRODUCTS} />
+    }
 }
 
