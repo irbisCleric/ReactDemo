@@ -11,17 +11,11 @@ class userStore extends BaseStore {
         super(...args);
     }
 
-    getHttpAll() {
-        // TODO refactor this http first request
-        return;
-
-        if (Store.users.length) {
-            return;
-        }
-        let url = "http://www.filltext.com/?rows=10&id={index}&name={firstName}";
+    getHttpAll(callback) {
+        let url = "http://www.filltext.com/?rows=10&email={email}&name={firstName}";
         $.get(url, (result) => {
-            Store.users = result;
-            this.emitChange();
+            this.data = new Set(result);
+            callback(result);
         });
     }
 
@@ -32,10 +26,12 @@ class userStore extends BaseStore {
     deleteUser(index) {
         this.removeById(index);
     }
+
     openDeleteUserModal(...data) {
         modalData = data[0];
         this.emitChange();
     }
+
     getDeleteUserModal() {
         return modalData;
     }

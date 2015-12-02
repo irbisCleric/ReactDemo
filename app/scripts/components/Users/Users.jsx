@@ -22,12 +22,19 @@ export default class Users extends React.Component {
             }
         };
     }
+
     componentDidMount() {
-        this.setState({tableData: usersStore.getAll()});
+        if( usersStore.getAll().length < 1){
+            usersStore.getHttpAll((results)=>{
+                this._onChange(results);
+            })
+        } else {
+            this._onChange();
+        }
     }
 
-    _onChange() {
-        this.setState({tableData: usersStore.getAll()});
+    _onChange(data=usersStore.getAll()) {
+        this.setState({tableData: data});
     }
 
     render() {
