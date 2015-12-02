@@ -8,6 +8,7 @@ import { createHistory, useBasename } from 'history';
 
 import App from './components/App';
 import Users from './components/Users/Users';
+import Catalog from './components/Catalog/Catalog';
 import User from './components/Users/User';
 import CreateUser from './components/Users/CreateUser';
 import NotFound from './components/NotFound';
@@ -16,6 +17,7 @@ const routes = {
     path: '/',
     component: App,
     childRoutes: [
+        {path: 'catalog', component: Catalog},
         {path: 'users', component: Users},
         {path: 'users/:id', component: User},
         {path: 'create-user', component: CreateUser},
