@@ -4,17 +4,26 @@
 import $ from 'jquery';
 import { Link } from 'react-router';
 
-var ProductCategoryRow = React.createClass({
-    render: function () {
-        return (<tr>
-            <th colSpan="2">{this.props.category}</th>
-        </tr>);
+class ProductCategoryRow extends React.Component {
+    constructor(props) {
+        super(props);
     }
-});
 
-var ProductRow = React.createClass({
-    render: function () {
-        var name = this.props.product.stocked ?
+    render() {
+        return (
+            <tr>
+                <th colSpan="2">{this.props.category}</th>
+            </tr>);
+    }
+}
+
+class ProductRow extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        let name = this.props.product.stocked ?
             this.props.product.name :
             <span style={{color: 'red'}}>
                 {this.props.product.name}
@@ -26,80 +35,92 @@ var ProductRow = React.createClass({
             </tr>
         );
     }
-});
+}
 
-var ProductTable = React.createClass({
-    render: function () {
-        var rows = [];
-        var lastCategory = null;
+class ProductTable extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        let rows = [];
+        let lastCategory = null;
         this.props.products.forEach(function (product) {
             if (product.name.indexOf(this.props.filterText) === -1 || (!product.stocked && this.props.inStockOnly)) {
                 return;
             }
             if (product.category !== lastCategory) {
-                rows.push(<ProductCategoryRow category={product.category} key={product.category} />);
+                rows.push(<ProductCategoryRow category={product.category} key={product.category}/>);
             }
-            rows.push(<ProductRow product={product} key={product.name} />);
+            rows.push(<ProductRow product={product} key={product.name}/>);
             lastCategory = product.category;
         }.bind(this));
         return (
             <table>
                 <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Price</th>
-                    </tr>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                </tr>
                 </thead>
                 <tbody>{rows}</tbody>
             </table>
         );
     }
-});
+}
 
-var SearchBar = React.createClass({
-    handleChange: function (e) {
+
+class SearchBar extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    handleChange(e) {
         this.props.onUserInput(
             e.target.value,
             e.target.checked
         );
-    },
-    render: function () {
+    }
+
+    render() {
         return (
             <form>
                 <input
                     type="text"
                     placeholder="Search..."
                     value={this.props.filterText}
-                    onChange={this.handleChange} />
+                    onChange={this.handleChange}/>
                 <p>
                     <input
                         type="checkbox"
                         checked={this.props.inStockOnly}
-                        onChange={this.handleChange} />
+                        onChange={this.handleChange}/>
                     {' '}
                     Only show products in stock
                 </p>
             </form>
         );
     }
-});
+}
 
-var FilterableProductTable = React.createClass({
-    getInitialState: function () {
-        return {
+
+class FilterableProductTable extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
             filterText: '',
             inStockOnly: false
-        };
-    },
+        }
+    }
 
-    handleUserInput: function (filterText, inStockOnly) {
+    handleUserInput(filterText, inStockOnly) {
         this.setState({
             filterText: filterText,
             inStockOnly: inStockOnly
         });
-    },
+    }
 
-    render: function () {
+    render() {
         return (
             <div>
                 <SearchBar
@@ -115,10 +136,10 @@ var FilterableProductTable = React.createClass({
             </div>
         );
     }
-});
+}
 
 
-var PRODUCTS = [
+let PRODUCTS = [
     {category: 'Sporting Goods', price: '$49.99', stocked: true, name: 'Football'},
     {category: 'Sporting Goods', price: '$9.99', stocked: true, name: 'Baseball'},
     {category: 'Sporting Goods', price: '$29.99', stocked: false, name: 'Basketball'},
@@ -128,8 +149,12 @@ var PRODUCTS = [
 ];
 
 export default class Catalog extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
-        return <FilterableProductTable products={PRODUCTS} />
+        return <FilterableProductTable products={PRODUCTS}/>
     }
 }
 
