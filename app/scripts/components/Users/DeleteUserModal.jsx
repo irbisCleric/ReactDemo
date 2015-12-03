@@ -12,7 +12,7 @@ export default class DeleteUserModal extends React.Component {
         super(props);
         this.state = {
             showModal: false,
-            currentUserIndex: null,
+            currentUserId: null,
             currentUser: {}
         };
         self = this;
@@ -20,13 +20,13 @@ export default class DeleteUserModal extends React.Component {
     close() {
         this.setState({
             showModal: false,
-            currentUserIndex: null,
+            currentUserId: null,
             currentUser: {}
         });
     }
 
     confirm() {
-        this.props.deleteFunc(this.state.currentUserIndex);
+        this.props.deleteFunc(usersStore.getDeleteUserModal().user);
         this.close();
     }
     componentWillMount(){
@@ -38,7 +38,8 @@ export default class DeleteUserModal extends React.Component {
     _onChange(){
         self.setState({
             showModal:true,
-            currentUser: usersStore.getDeleteUserModal().user
+            currentUser: usersStore.getDeleteUserModal().user,
+            currentUserId: usersStore.getDeleteUserModal().user.Id
         })
     }
 

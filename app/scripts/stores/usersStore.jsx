@@ -12,7 +12,7 @@ class userStore extends BaseStore {
     }
 
     getHttpAll(callback) {
-        let url = "http://www.filltext.com/?rows=10&email={email}&name={firstName}";
+        let url = "http://www.filltext.com/?rows=10&email={email}&name={firstName}&id={index}";
         $.get(url, (result) => {
             this.data = new Set(result);
             callback(result);
@@ -23,8 +23,8 @@ class userStore extends BaseStore {
         this.set(user);
     }
 
-    deleteUser(index) {
-        this.removeById(index);
+    deleteUser(id) {
+        this.removeById(id);
     }
 
     openDeleteUserModal(...data) {
@@ -42,7 +42,7 @@ let store = new userStore();
 appDispatcher.register((payload) => {
     switch (payload.actionType) {
         case appConstants.USER_DELETE:
-            store.deleteUser();
+            store.deleteUser(payload.index.id);
             break;
         case appConstants.USERS_ADD:
             store.addUser(payload.user);

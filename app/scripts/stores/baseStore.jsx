@@ -42,7 +42,7 @@ export default class BaseStore extends EventEmitter {
     getById(id) {
         let result;
         for (let item of this.data) {
-            if (id === item._id) {
+            if (id === item.id) {
                 result = item;
             }
         }
