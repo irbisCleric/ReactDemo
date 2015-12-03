@@ -4,6 +4,15 @@
 import $ from 'jquery';
 import { Link } from 'react-router';
 
+let PRODUCTS = [
+    {category: 'Sporting Goods', price: '$49.99', stocked: true, name: 'Football'},
+    {category: 'Sporting Goods', price: '$9.99', stocked: true, name: 'Baseball'},
+    {category: 'Sporting Goods', price: '$29.99', stocked: false, name: 'Basketball'},
+    {category: 'Electronics', price: '$99.99', stocked: true, name: 'iPod Touch'},
+    {category: 'Electronics', price: '$399.99', stocked: false, name: 'iPhone 5'},
+    {category: 'Electronics', price: '$199.99', stocked: true, name: 'Nexus 7'}
+];
+
 class ProductCategoryRow extends React.Component {
     constructor(props) {
         super(props);
@@ -73,6 +82,7 @@ class ProductTable extends React.Component {
 class SearchBar extends React.Component {
     constructor(props) {
         super(props);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     handleChange(e) {
@@ -126,7 +136,7 @@ class FilterableProductTable extends React.Component {
                 <SearchBar
                     filterText={this.state.filterText}
                     inStockOnly={this.state.inStockOnly}
-                    onUserInput={this.handleUserInput}
+                    onUserInput={this.handleUserInput.bind(this)}
                 />
                 <ProductTable
                     products={this.props.products}
@@ -137,16 +147,6 @@ class FilterableProductTable extends React.Component {
         );
     }
 }
-
-
-let PRODUCTS = [
-    {category: 'Sporting Goods', price: '$49.99', stocked: true, name: 'Football'},
-    {category: 'Sporting Goods', price: '$9.99', stocked: true, name: 'Baseball'},
-    {category: 'Sporting Goods', price: '$29.99', stocked: false, name: 'Basketball'},
-    {category: 'Electronics', price: '$99.99', stocked: true, name: 'iPod Touch'},
-    {category: 'Electronics', price: '$399.99', stocked: false, name: 'iPhone 5'},
-    {category: 'Electronics', price: '$199.99', stocked: true, name: 'Nexus 7'}
-];
 
 export default class Catalog extends React.Component {
     constructor(props) {
