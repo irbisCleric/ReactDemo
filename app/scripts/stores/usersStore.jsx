@@ -27,8 +27,8 @@ class userStore extends BaseStore {
         this.removeById(id);
     }
 
-    openDeleteUserModal(...data) {
-        modalData = data[0];
+    openDeleteUserModal(user) {
+        modalData = user;
         this.emitChange();
     }
 

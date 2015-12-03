@@ -8,6 +8,7 @@ import usersStore from '../stores/usersStore';
 export default class Table extends React.Component {
     constructor(props) {
         super(props);
+        this.TO = this.props.tableOptions;
     }
 
     generateTableHead() {
@@ -15,12 +16,12 @@ export default class Table extends React.Component {
             <thead>
             <tr>
                 {
-                    this.props.tableOptions.tableTitles.map((title, i) => {
+                    this.TO.tableTitles.map((title, i) => {
                         return (
                         <th key={i}>{title}</th>);
                         })
                     }
-                <If test={this.props.tableOptions.delete}>
+                <If test={this.TO.actions}>
                     <th>Actions</th>
                 </If>
             </tr>
@@ -33,31 +34,31 @@ export default class Table extends React.Component {
             return (
                 <tr key={i}>
                     {this.generateTableRowData(item)}
-                    <If test={this.props.tableOptions.delete}>
+                    <If test={this.TO.actions}>
                         <td>
                             <OverlayTrigger
                                 trigger="click"
                                 placement="top"
                                 overlay={
                                     <Popover id="some-id-{i}">
-                                        <Button className="btn btn-primary">
-                                            <i className="glyphicon glyphicon-pencil"></i>
-                                        </Button>
-                                        <Button
-                                            className="btn btn-danger"
-                                            onClick={this.props.open.bind(this, i, item)}>
-                                            <i className="glyphicon glyphicon-trash"></i>
-                                        </Button>
+                                        <If test={this.TO.actions.edit}>
+                                            <Button className="btn btn-primary">
+                                                <i className="glyphicon glyphicon-pencil" onClick={this.TO.actions.edit.func}></i>
+                                            </Button>
+                                        </If>
+                                        <If test={this.TO.actions.remove}>
+                                            <Button
+                                                className="btn btn-danger"
+                                                onClick={this.TO.actions.remove.func.bind(this, item)}>
+                                                <i className="glyphicon glyphicon-trash"></i>
+                                            </Button>
+                                            </If>
                                     </Popover>
                                     }>
                                 <Button bsStyle="default">
                                     <i className="glyphicon glyphicon-cog"></i>
                                 </Button>
                             </OverlayTrigger>
-                            <div className="btn-group">
-
-
-                            </div>
                         </td>
                     </If>
                 </tr>
@@ -66,7 +67,7 @@ export default class Table extends React.Component {
     }
 
     generateTableRowData(item) {
-        return this.props.tableOptions.tableFields.map((fieldName, i) => {
+        return this.TO.tableFields.map((fieldName, i) => {
             return (<td key={i}>
                 <Link to={"users/" + item.name}>{item[fieldName]}</Link>
             </td>)

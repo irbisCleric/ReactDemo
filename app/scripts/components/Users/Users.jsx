@@ -15,11 +15,20 @@ export default class Users extends React.Component {
             tableOptions: {
                 tableTitles: ['Name', 'Email'],
                 tableFields: ['name', 'email'],
-                delete: true,
-                deleteFunc: (user) => {
-                    usersActions.deleteUser(user);
-                    this._onChange();
-                }
+                actions: {
+                    remove : {
+                        func:(user) => {
+                            usersActions.deleteUserModal(user);
+                        },
+                        secondaryFunc: (user) => {
+                            usersActions.deleteUser(user);
+                            this._onChange();
+                        }
+                    },
+                    edit: {
+                        func: ()=>{console.log('edit')}
+                    }
+                },
             }
         };
     }
