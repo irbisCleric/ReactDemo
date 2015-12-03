@@ -11,9 +11,10 @@ export default class Users extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            tableTitles: ['email', 'name'],
             tableData: [], //Users
             tableOptions: {
+                tableTitles: ['Name', 'Email'],
+                tableFields: ['name', 'email'],
                 delete: true,
                 deleteFunc: (index) => {
                     usersActions.deleteUser(index);
