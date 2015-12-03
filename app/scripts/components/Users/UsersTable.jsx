@@ -15,7 +15,7 @@ export default class UsersTable extends React.Component {
         super(props);
     }
     open(i, user){
-        var data = {i,user}
+        var data = {i,user};
         usersActions.deleteUserModal(data);
     }
 
