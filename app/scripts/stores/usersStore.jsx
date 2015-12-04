@@ -5,6 +5,7 @@ import BaseStore from './baseStore';
 import appConstants from '../constants/appConstants';
 
 let modalData = {};
+let originalUsers = null;
 
 class userStore extends BaseStore {
     constructor(...args) {
@@ -12,7 +13,7 @@ class userStore extends BaseStore {
     }
 
     getHttpAll(callback) {
-        let url = "http://www.filltext.com/?rows=10&email={email}&name={firstName}&id={index}";
+        let url = "http://www.filltext.com/?rows=10&email={email}&name={firstName}&id={index}&desc={lorem|20}";
         $.get(url, (result) => {
             this.data = new Set(result);
             callback(result);
@@ -25,7 +26,7 @@ class userStore extends BaseStore {
 
     deleteUser(id) {
         modalData = {};
-        if(id){
+        if (id) {
             this.removeById(id);
         }
     }
@@ -39,17 +40,41 @@ class userStore extends BaseStore {
         return modalData;
     }
 
-    sortUsers(prop){
-        function compare(a,b) {
+    sortUsers(prop) {
+        function compare(a, b) {
             if (a[prop] < b[prop])
                 return -1;
             if (a[prop] > b[prop])
                 return 1;
             return 0;
         }
+
         let users = this.getAll();
 
         this.setAll(users.sort(compare));
+    }
+
+    filterUsers(e) {
+        let temp;
+        let result = [];
+        if (originalUsers) {
+            temp = Array.from(originalUsers);
+        } else {
+            originalUsers = this.data;
+            temp = Array.from(this.data);
+        }
+
+        temp.forEach((item) => {
+            if (item.name.indexOf(e.target.value) !== -1) {
+                result.push(item);
+            }
+        });
+
+        if (e.target.value === '') {
+            originalUsers = null;
+        }
+
+        this.setAll(result);
     }
 }
 
@@ -59,8 +84,8 @@ appDispatcher.register((payload) => {
     switch (payload.actionType) {
         case appConstants.USER_DELETE:
             /*
-            * Null if we close modal without removal
-            */
+             * Null if we close modal without removal
+             */
             let id = payload.user ? payload.user.id : null;
             store.deleteUser(id);
             break;
@@ -75,6 +100,9 @@ appDispatcher.register((payload) => {
             break;
         case appConstants.SORT_USERS:
             store.sortUsers(payload.prop);
+            break;
+        case appConstants.FILTER_USERS:
+            store.filterUsers(payload.text);
             break;
     }
     return true;

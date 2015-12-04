@@ -30,6 +30,12 @@ export default {
             actionType: appConstants.SORT_USERS,
             prop: prop
         })
+    },
+    filterUsers:function(e){
+        appDispatcher.dispatch({
+            actionType: appConstants.FILTER_USERS,
+            text: e
+        })
     }
 
 }

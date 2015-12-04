@@ -9,7 +9,11 @@ export default class Table extends React.Component {
     constructor(props) {
         super(props);
         this.TO = this.props.tableOptions;
-        this.state = {sort: {}}
+        this.state = {
+            filterText: '',
+            sort: {},
+            data: this.props.tableData
+        }
     }
 
     sort(i) {
@@ -61,14 +65,14 @@ export default class Table extends React.Component {
         )
     }
 
-    generateTableRow() {
+    generateTableRows() {
         return this.props.tableData.map((item, i) => {
             return (
                 <tr key={i}>
                     {
                         this.TO.selectable ?
                             <td>
-                                <input type="checkbox" checked={item.selected} onChange={this.handleSelect.bind(this, item)} />
+                                <input type="checkbox" checked={item.selected} onChange={this.TO.handleFilter} />
                             </td>
                             : null
                         }
@@ -118,11 +122,16 @@ export default class Table extends React.Component {
     render() {
         return (
             <div>
+                <input
+                    type="text"
+                    placeholder="Search..."
+                    value={this.props.filterText}
+                    onChange={this.TO.filter}/>
                 <If test={this.props.tableData.length}>
                     <table className="table table-bordered table-hover col-lg-12">
                         {this.generateTableHead()}
                         <tbody>
-                        {this.generateTableRow()}
+                        {this.generateTableRows()}
                         </tbody>
                     </table>
                 </If>

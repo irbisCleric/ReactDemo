@@ -9,7 +9,6 @@ import { Button, Modal } from 'react-bootstrap';
 import usersActions from '../../actions/usersActions';
 import usersStore from '../../stores/usersStore';
 
-
 export default class UsersTable extends React.Component {
     constructor(props) {
         super(props);
@@ -21,6 +20,9 @@ export default class UsersTable extends React.Component {
                 tableTitles: ['Name', 'Email'],
                 tableFields: ['name', 'email'],
                 selectable: true,
+                filter: (e)=>{
+                    usersActions.filterUsers(e);
+                },
                 actions: {
                     remove: {
                         func: (user) => {

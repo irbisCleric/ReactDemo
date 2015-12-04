@@ -8,5 +8,6 @@ export default keyMirror({
     USER_UPDATE: null,
     USER_DELETE: null,
     OPEN_DELETE_USER_MODAL: null,
-    SORT_USERS: null
+    SORT_USERS: null,
+    FILTER_USERS: null
 });
