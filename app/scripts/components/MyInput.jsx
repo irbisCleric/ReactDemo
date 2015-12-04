@@ -1,18 +1,14 @@
-var MyInput = React.createClass({
+import reactMixin from 'react-mixin';
 
-    // Add the Formsy Mixin
-    mixins: [Formsy.Mixin],
-
-    // setValue() will set the value of the component, which in
-    // turn will validate it and the rest of the form
-    changeValue: function (event) {
+export default class MyInput extends React.Component {
+    changeValue (event) {
         this.setValue(event.currentTarget.value);
         if(this.props.change){
             this.props.change(event)
         }
-    },
-    render: function () {
+    }
 
+    render() {
         // Set a specific className based on the validation
         // state of this component. showRequired() is true
         // when the value is empty and the required prop is
@@ -27,7 +23,7 @@ var MyInput = React.createClass({
         return (
             <div className={'form-group ' + className}>
                 <input type="text"
-                    onChange={this.changeValue}
+                    onChange={this.changeValue.bind(this)}
                     value={this.getValue()}
                     name={this.props.name}
                     className='form-control'
@@ -36,6 +32,6 @@ var MyInput = React.createClass({
             </div>
         );
     }
-});
+}
 
-export default MyInput;
+reactMixin.onClass(MyInput, Formsy.Mixin);

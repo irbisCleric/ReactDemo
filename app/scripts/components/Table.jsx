@@ -78,7 +78,7 @@ export default class Table extends React.Component {
         return (
             <div>
                 <If test={this.props.tableData.length}>
-                    <table className="table table-bordered col-lg-12">
+                    <table className="table table-bordered table-hover col-lg-12">
                         {this.generateTableHead()}
                         <tbody>
                         {this.generateTableRow()}
@@ -91,3 +91,8 @@ export default class Table extends React.Component {
         )
     }
 }
+
+Table.propTypes = {
+    tableOptions: React.PropTypes.object.isRequired,
+    tableData: React.PropTypes.array.isRequired
+};

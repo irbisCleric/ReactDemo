@@ -34,3 +34,8 @@ export default class UsersTable extends React.Component {
         )
     }
 }
+
+UsersTable.propTypes = {
+    tableOptions: React.PropTypes.object.isRequired,
+    tableData: React.PropTypes.array.isRequired
+};
