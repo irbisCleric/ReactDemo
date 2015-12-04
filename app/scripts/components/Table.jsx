@@ -9,25 +9,26 @@ export default class Table extends React.Component {
     constructor(props) {
         super(props);
         this.TO = this.props.tableOptions;
-        this.state = {sort:{}}
+        this.state = {sort: {}}
     }
 
-    sort(i){
+    sort(i) {
         let prop = this.TO.tableFields[i];
         this.TO.sort(prop);
-        this.setState({sort:{
+        this.setState({
+            sort: {
                 prop: prop
             }
         })
     }
 
-    handleSelect(item, e){
+    handleSelect(item, e) {
         let copy = Object.assign({}, item);
         copy.selected = e.target.checked;
         usersStore.update(copy.id, copy);
     }
 
-    handleSelectAll(e){
+    handleSelectAll(e) {
         let newData = this.props.tableData.map((item, i) => {
             item.selected = e.target.checked;
             return item;
@@ -40,7 +41,9 @@ export default class Table extends React.Component {
             <thead>
                 <tr>
                     { this.TO.selectable ?
-                        <th><input type="checkbox" onChange={this.handleSelectAll.bind(this)}/></th>
+                        <th>
+                            <input type="checkbox" onChange={this.handleSelectAll.bind(this)}/>
+                        </th>
                         : null}
                     {
                         this.TO.tableTitles.map((title, i) => {
@@ -48,8 +51,8 @@ export default class Table extends React.Component {
                                 <th key={i}
                                     className={ (this.TO.tableFields[i] === this.state.sort.prop) ? 'sort' : '' }
                                     onClick={this.sort.bind(this, i)}>{title}</th>);
-                            })
-                     }
+                        })
+                    }
                     <If test={this.TO.actions}>
                         <th>Actions</th>
                     </If>
@@ -64,9 +67,11 @@ export default class Table extends React.Component {
                 <tr key={i}>
                     {
                         this.TO.selectable ?
-                            <td><input type="checkbox" checked={item.selected} onChange={this.handleSelect.bind(this, item)} /></td>
+                            <td>
+                                <input type="checkbox" checked={item.selected} onChange={this.handleSelect.bind(this, item)} />
+                            </td>
                             : null
-                    }
+                        }
 
                     {this.generateTableRowData(item)}
 
@@ -88,7 +93,7 @@ export default class Table extends React.Component {
                                                 onClick={this.TO.actions.remove.func.bind(this, item)}>
                                                 <i className="glyphicon glyphicon-trash"></i>
                                             </Button>
-                                            </If>
+                                        </If>
                                     </Popover>
                                     }>
                                 <Button bsStyle="default">

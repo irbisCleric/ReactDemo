@@ -13,41 +13,21 @@ export default class Users extends React.Component {
 
         this._onChange = this._onChange.bind(this);
         this.state = {
-            tableData: [], //Users
-            tableOptions: {
-                sort : (prop) => { usersActions.sortUsers(prop) },
-                tableTitles: ['Name', 'Email'],
-                tableFields: ['name', 'email'],
-                selectable: true,
-                actions: {
-                    remove : {
-                        func:(user) => {
-                            usersActions.deleteUserModal(user);
-                        },
-                        secondaryFunc: (user) => {
-                            usersActions.deleteUser(user);
-                            this._onChange();
-                        }
-                    },
-                    edit: {
-                        func: ()=>{console.log('edit')}
-                    }
-                }
-            }
+            tableData: [] //Users
         };
     }
 
-    componentWillMount(){
+    componentWillMount() {
         usersStore.addChangeListener(this._onChange);
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         usersStore.removeChangeListener(this._onChange);
     }
 
     componentDidMount() {
-        if( usersStore.getAll().length < 1){
-            usersStore.getHttpAll((results)=>{
+        if (usersStore.getAll().length < 1) {
+            usersStore.getHttpAll((results)=> {
                 this._onChange(results);
             })
         } else {
@@ -55,14 +35,14 @@ export default class Users extends React.Component {
         }
     }
 
-    _onChange(data=usersStore.getAll()) {
+    _onChange(data = usersStore.getAll()) {
         this.setState({tableData: data});
     }
 
     render() {
         return (
             <div className={this.props.className}>
-                <UsersTable {...this.state}/>
+                <UsersTable tableData={this.state.tableData}/>
             </div>
         )
     }

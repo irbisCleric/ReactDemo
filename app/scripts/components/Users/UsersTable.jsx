@@ -13,7 +13,32 @@ import usersStore from '../../stores/usersStore';
 export default class UsersTable extends React.Component {
     constructor(props) {
         super(props);
-    }    
+        this.state = { //Users
+            tableOptions: {
+                sort: (prop) => {
+                    usersActions.sortUsers(prop)
+                },
+                tableTitles: ['Name', 'Email'],
+                tableFields: ['name', 'email'],
+                selectable: true,
+                actions: {
+                    remove: {
+                        func: (user) => {
+                            usersActions.deleteUserModal(user);
+                        },
+                        secondaryFunc: (user) => {
+                            usersActions.deleteUser(user);
+                        }
+                    },
+                    edit: {
+                        func: ()=> {
+                            console.log('edit')
+                        }
+                    }
+                }
+            }
+        };
+    }
 
     render() {
         return (
@@ -21,13 +46,13 @@ export default class UsersTable extends React.Component {
                 <div>
                     <Table
                         tableData={this.props.tableData}
-                        tableOptions={this.props.tableOptions}>
+                        tableOptions={this.state.tableOptions}>
 
                         <If test={!this.props.tableData.length}>
                             <h2>No users</h2>
                         </If>
 
-                        <DeleteUserModal deleteFunc={this.props.tableOptions.actions.remove.secondaryFunc}/>
+                        <DeleteUserModal deleteFunc={this.state.tableOptions.actions.remove.secondaryFunc}/>
                     </Table>
                 </div>
             </div>
@@ -36,6 +61,5 @@ export default class UsersTable extends React.Component {
 }
 
 UsersTable.propTypes = {
-    tableOptions: React.PropTypes.object.isRequired,
     tableData: React.PropTypes.array.isRequired
 };
