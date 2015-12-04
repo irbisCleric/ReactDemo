@@ -10,9 +10,12 @@ import usersStore from '../../stores/usersStore';
 export default class Users extends React.Component {
     constructor(props) {
         super(props);
+
+        this._onChange = this._onChange.bind(this);
         this.state = {
             tableData: [], //Users
             tableOptions: {
+                sort : (prop) => { usersActions.sortUsers(prop) },
                 tableTitles: ['Name', 'Email'],
                 tableFields: ['name', 'email'],
                 actions: {
@@ -28,9 +31,17 @@ export default class Users extends React.Component {
                     edit: {
                         func: ()=>{console.log('edit')}
                     }
-                },
+                }
             }
         };
+    }
+
+    componentWillMount(){
+        usersStore.addChangeListener(this._onChange);
+    }
+
+    componentWillUnmount(){
+        usersStore.removeChangeListener(this._onChange);
     }
 
     componentDidMount() {

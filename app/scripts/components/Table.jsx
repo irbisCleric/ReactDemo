@@ -9,22 +9,34 @@ export default class Table extends React.Component {
     constructor(props) {
         super(props);
         this.TO = this.props.tableOptions;
+        this.state = {sort:{}}
+    }
+
+    sort(i){
+        let prop = this.TO.tableFields[i];
+        this.TO.sort(prop);
+        this.setState({sort:{
+                prop: prop
+            }
+        })
     }
 
     generateTableHead() {
         return (
             <thead>
-            <tr>
-                {
-                    this.TO.tableTitles.map((title, i) => {
-                        return (
-                        <th key={i}>{title}</th>);
-                        })
-                    }
-                <If test={this.TO.actions}>
-                    <th>Actions</th>
-                </If>
-            </tr>
+                <tr>
+                    {
+                        this.TO.tableTitles.map((title, i) => {
+                            return (
+                                <th key={i}
+                                    className={ (this.TO.tableFields[i] === this.state.sort.prop) ? 'sort' : '' }
+                                    onClick={this.sort.bind(this, i)}>{title}</th>);
+                            })
+                     }
+                    <If test={this.TO.actions}>
+                        <th>Actions</th>
+                    </If>
+                </tr>
             </thead>
         )
     }

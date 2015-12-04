@@ -4,7 +4,7 @@ import appDispatcher from '../dispatcher/appDispatcher';
 import BaseStore from './baseStore';
 import appConstants from '../constants/appConstants';
 
-var modalData = {};
+let modalData = {};
 
 class userStore extends BaseStore {
     constructor(...args) {
@@ -24,7 +24,10 @@ class userStore extends BaseStore {
     }
 
     deleteUser(id) {
-        this.removeById(id);
+        modalData = {};
+        if(id){
+            this.removeById(id);
+        }
     }
 
     openDeleteUserModal(user) {
@@ -35,6 +38,19 @@ class userStore extends BaseStore {
     getDeleteUserModal() {
         return modalData;
     }
+
+    sortUsers(prop){
+        function compare(a,b) {
+            if (a[prop] < b[prop])
+                return -1;
+            if (a[prop] > b[prop])
+                return 1;
+            return 0;
+        }
+        let users = this.getAll();
+
+        this.setAll(users.sort(compare));
+    }
 }
 
 let store = new userStore();
@@ -42,7 +58,11 @@ let store = new userStore();
 appDispatcher.register((payload) => {
     switch (payload.actionType) {
         case appConstants.USER_DELETE:
-            store.deleteUser(payload.index.id);
+            /*
+            * Null if we close modal without removal
+            */
+            let id = payload.user ? payload.user.id : null;
+            store.deleteUser(id);
             break;
         case appConstants.USERS_ADD:
             store.addUser(payload.user);
@@ -52,6 +72,9 @@ appDispatcher.register((payload) => {
             break;
         case appConstants.OPEN_DELETE_USER_MODAL:
             store.openDeleteUserModal(payload.data);
+            break;
+        case appConstants.SORT_USERS:
+            store.sortUsers(payload.prop);
             break;
     }
     return true;

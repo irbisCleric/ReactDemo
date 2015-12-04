@@ -2,10 +2,10 @@ import appDispatcher from '../dispatcher/appDispatcher';
 import appConstants from '../constants/appConstants';
 
 export default {
-    deleteUser: function (index) {
+    deleteUser: function (user) {
         appDispatcher.dispatch({
             actionType: appConstants.USER_DELETE,
-            index: index
+            user: user
         })
     },
     getUsers: function (index) {
@@ -23,6 +23,12 @@ export default {
         appDispatcher.dispatch({
             actionType: appConstants.OPEN_DELETE_USER_MODAL,
             data: data
+        })
+    },
+    sortUsers: function(prop){
+        appDispatcher.dispatch({
+            actionType: appConstants.SORT_USERS,
+            prop: prop
         })
     }
 
