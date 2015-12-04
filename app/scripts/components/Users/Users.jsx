@@ -18,6 +18,7 @@ export default class Users extends React.Component {
                 sort : (prop) => { usersActions.sortUsers(prop) },
                 tableTitles: ['Name', 'Email'],
                 tableFields: ['name', 'email'],
+                selectable: true,
                 actions: {
                     remove : {
                         func:(user) => {

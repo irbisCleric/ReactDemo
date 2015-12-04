@@ -22,7 +22,7 @@ export default class BaseStore extends EventEmitter {
 
     update(id, data) {
         for (let item of this.data) {
-            if (id === item._id) {
+            if (id === item.id) {
                 Object.assign(item, data);
             }
         }

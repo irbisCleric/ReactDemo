@@ -21,10 +21,27 @@ export default class Table extends React.Component {
         })
     }
 
+    handleSelect(item, e){
+        let copy = Object.assign({}, item);
+        copy.selected = e.target.checked;
+        usersStore.update(copy.id, copy);
+    }
+
+    handleSelectAll(e){
+        let newData = this.props.tableData.map((item, i) => {
+            item.selected = e.target.checked;
+            return item;
+        });
+        usersStore.setAll(newData);
+    }
+
     generateTableHead() {
         return (
             <thead>
                 <tr>
+                    { this.TO.selectable ?
+                        <th><input type="checkbox" onChange={this.handleSelectAll.bind(this)}/></th>
+                        : null}
                     {
                         this.TO.tableTitles.map((title, i) => {
                             return (
@@ -45,7 +62,14 @@ export default class Table extends React.Component {
         return this.props.tableData.map((item, i) => {
             return (
                 <tr key={i}>
+                    {
+                        this.TO.selectable ?
+                            <td><input type="checkbox" checked={item.selected} onChange={this.handleSelect.bind(this, item)} /></td>
+                            : null
+                    }
+
                     {this.generateTableRowData(item)}
+
                     <If test={this.TO.actions}>
                         <td>
                             <OverlayTrigger
@@ -108,3 +132,4 @@ Table.propTypes = {
     tableOptions: React.PropTypes.object.isRequired,
     tableData: React.PropTypes.array.isRequired
 };
+
