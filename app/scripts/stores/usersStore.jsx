@@ -57,6 +57,8 @@ class userStore extends BaseStore {
     filterUsers(e) {
         let temp;
         let result = [];
+        let value = e.target.value.trim();
+        
         if (originalUsers) {
             temp = Array.from(originalUsers);
         } else {
@@ -65,12 +67,12 @@ class userStore extends BaseStore {
         }
 
         temp.forEach((item) => {
-            if (item.name.indexOf(e.target.value) !== -1) {
+            if (item.name.indexOf(value) !== -1) {
                 result.push(item);
             }
         });
 
-        if (e.target.value === '') {
+        if (value === '') {
             originalUsers = null;
         }
 
