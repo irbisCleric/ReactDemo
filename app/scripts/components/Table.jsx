@@ -72,7 +72,7 @@ export default class Table extends React.Component {
                     {
                         this.TO.selectable ?
                             <td>
-                                <input type="checkbox" checked={item.selected} onChange={this.TO.handleFilter} />
+                                <input type="checkbox" checked={item.selected} onChange={this.handleSelect.bind(this,item)} />
                             </td>
                             : null
                         }
@@ -123,13 +123,21 @@ export default class Table extends React.Component {
     render() {
         return (
             <div>
-                <input
-                    type="text"
-                    placeholder="Search..."
-                    value={this.props.filterText}
-                    onChange={this.TO.filter}
-                    className="form-control"
-                />
+                <div className="row">
+                    <div className="col-lg-9">
+                        The remove button will be here...
+                    </div>
+                    <div className="col-lg-3">
+                        <input
+                            type="text"
+                            placeholder="Search..."
+                            value={this.props.filterText}
+                            onChange={this.TO.filter}
+                            className="form-control"
+                        />
+                    </div>
+                </div>
+
                 <If test={this.props.tableData.length}>
                     <table className="table table-bordered table-hover col-lg-12">
                         {this.generateTableHead()}

@@ -44,20 +44,16 @@ export default class UsersTable extends React.Component {
 
     render() {
         return (
-            <div>
-                <div className="table-responsive">
-                    <Table
-                        tableData={this.props.tableData}
-                        tableOptions={this.state.tableOptions}>
+            <Table
+                tableData={this.props.tableData}
+                tableOptions={this.state.tableOptions}>
 
-                        <If test={!this.props.tableData.length}>
-                            <h2>No users</h2>
-                        </If>
+                <If test={!this.props.tableData.length}>
+                    <h2>No users</h2>
+                </If>
 
-                        <DeleteUserModal deleteFunc={this.state.tableOptions.actions.remove.secondaryFunc}/>
-                    </Table>
-                </div>
-            </div>
+                <DeleteUserModal deleteFunc={this.state.tableOptions.actions.remove.secondaryFunc}/>
+            </Table>
         )
     }
 }
