@@ -127,7 +127,9 @@ export default class Table extends React.Component {
                     type="text"
                     placeholder="Search..."
                     value={this.props.filterText}
-                    onChange={this.TO.filter}/>
+                    onChange={this.TO.filter}
+                    className="form-control"
+                />
                 <If test={this.props.tableData.length}>
                     <table className="table table-bordered table-hover col-lg-12">
                         {this.generateTableHead()}
