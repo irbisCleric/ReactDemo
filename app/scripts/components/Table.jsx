@@ -90,7 +90,7 @@ export default class Table extends React.Component {
                                     <Popover id="some-id-{i}">
                                         <If test={this.TO.actions.edit}>
                                             <Button className="btn btn-primary">
-                                                <i className="glyphicon glyphicon-pencil" onClick={this.TO.actions.edit.func}></i>
+                                                <i className="glyphicon glyphicon-pencil" onClick={this.TO.actions.edit.func.bind(this,item)}></i>
                                             </Button>
                                         </If>
                                         <If test={this.TO.actions.remove}>
@@ -117,8 +117,12 @@ export default class Table extends React.Component {
         return this.TO.tableFields.map((fieldName, i) => {
             return (
                 <td key={i}>
-                    <EditRow fieldName={fieldName} item={item}/>
-                    <Link to={"users/" + item.name}>{item[fieldName]}</Link>
+                    <If test={item.showEdit}>
+                        <EditRow fieldName={fieldName} item={item} save={this.TO.actions.edit.secondaryFunc}/>
+                    </If>
+                    <If test={!item.showEdit}>
+                        <Link to={"users/" + item.name}>{item[fieldName]}</Link>
+                    </If>
                 </td>)
         })
     }

@@ -36,6 +36,12 @@ export default {
             actionType: appConstants.FILTER_USERS,
             text: e
         })
+    },
+    toggleEditMode:function(user){
+        appDispatcher.dispatch({
+            actionType: appConstants.TOGGLE_EDIT_MODE,
+            user: user
+        })
     }
 
 }

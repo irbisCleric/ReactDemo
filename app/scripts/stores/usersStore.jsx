@@ -4,8 +4,9 @@ import appDispatcher from '../dispatcher/appDispatcher';
 import BaseStore from './baseStore';
 import appConstants from '../constants/appConstants';
 
-let modalData = {};
-let originalUsers = null;
+let modalData = {},
+     originalUsers = null,
+     _currentUser = null;
 
 class userStore extends BaseStore {
     constructor(...args) {
@@ -81,6 +82,22 @@ class userStore extends BaseStore {
 
         this.setAll(result);
     }
+
+    toggleEditUser(user){
+        let userObj = this.getById(user.id);
+        userObj.showEdit = !userObj.showEdit;
+        this.update(user.id, userObj);
+        _currentUser = Object.assign({}, userObj);
+    }
+
+    getCurrent () {
+        return _currentUser;
+    }
+    updateTEST (id, user){
+        let userObj = this.getById(id);
+        userObj.showEdit = false;
+        this.update(id, userObj);
+    }
 }
 
 let store = new userStore();
@@ -109,7 +126,11 @@ appDispatcher.register((payload) => {
         case appConstants.FILTER_USERS:
             store.filterUsers(payload.text);
             break;
+        case appConstants.TOGGLE_EDIT_MODE:
+            store.toggleEditUser(payload.user);
+            break;
     }
+
     return true;
 })
 

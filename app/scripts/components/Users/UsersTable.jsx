@@ -5,7 +5,6 @@ import Table from '../Table';
 import DeleteUserModal from './DeleteUserModal';
 import { Button, Modal } from 'react-bootstrap';
 
-
 import usersActions from '../../actions/usersActions';
 import usersStore from '../../stores/usersStore';
 
@@ -14,14 +13,14 @@ export default class UsersTable extends React.Component {
         super(props);
         this.state = { //Users
             tableOptions: {
-                sort: (prop) => {
-                    usersActions.sortUsers(prop)
-                },
                 tableTitles: ['Name', 'Email'],
                 tableFields: ['name', 'email'],
                 selectable: true,
-                filter: (e)=>{
+                filter: (e) => {
                     usersActions.filterUsers(e);
+                },
+                sort: (prop) => {
+                    usersActions.sortUsers(prop);
                 },
                 actions: {
                     remove: {
@@ -33,8 +32,11 @@ export default class UsersTable extends React.Component {
                         }
                     },
                     edit: {
-                        func: ()=> {
-                            console.log('edit')
+                        func: (user) => {
+                            usersActions.toggleEditMode(user);
+                        },
+                        secondaryFunc: (user, save) => {
+                            //usersActions.toggleEditMode(user, save);
                         }
                     }
                 }
