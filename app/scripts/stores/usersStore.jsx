@@ -27,6 +27,9 @@ class userStore extends BaseStore {
     deleteUser(id) {
         modalData = {};
         if (id) {
+            let item = this.getById(id);
+            originalUsers.delete(item);
+
             this.removeById(id);
         }
     }
