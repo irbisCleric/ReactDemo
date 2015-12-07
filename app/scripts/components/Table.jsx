@@ -4,6 +4,7 @@ import If from './helpers/If';
 import { Button, Modal, OverlayTrigger, Popover } from 'react-bootstrap';
 import usersActions from '../actions/usersActions';
 import usersStore from '../stores/usersStore';
+import { EditRow } from './Table/EditRow';
 
 export default class Table extends React.Component {
     constructor(props) {
@@ -114,9 +115,11 @@ export default class Table extends React.Component {
 
     generateTableRowData(item) {
         return this.TO.tableFields.map((fieldName, i) => {
-            return (<td key={i}>
-                <Link to={"users/" + item.name}>{item[fieldName]}</Link>
-            </td>)
+            return (
+                <td key={i}>
+                    <EditRow fieldName={fieldName} item={item}/>
+                    <Link to={"users/" + item.name}>{item[fieldName]}</Link>
+                </td>)
         })
     }
 
