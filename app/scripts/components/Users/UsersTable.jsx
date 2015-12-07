@@ -45,7 +45,7 @@ export default class UsersTable extends React.Component {
     render() {
         return (
             <div>
-                <div>
+                <div className="table-responsive">
                     <Table
                         tableData={this.props.tableData}
                         tableOptions={this.state.tableOptions}>

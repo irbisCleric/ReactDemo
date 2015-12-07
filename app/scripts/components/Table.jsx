@@ -83,6 +83,7 @@ export default class Table extends React.Component {
                         <td>
                             <OverlayTrigger
                                 trigger="click"
+                                rootClose
                                 placement="top"
                                 overlay={
                                     <Popover id="some-id-{i}">
