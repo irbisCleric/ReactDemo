@@ -5,7 +5,7 @@ import { Button, Modal, OverlayTrigger, Popover } from 'react-bootstrap';
 import usersActions from '../actions/usersActions';
 import usersStore from '../stores/usersStore';
 import { EditRow } from './Table/EditRow';
-import { RemoveSelectedRow } from './Table/RemoveSelectedRow';
+import { RemoveSelectedRow } from './Table/TableNavBar';
 
 export default class Table extends React.Component {
     constructor(props) {
