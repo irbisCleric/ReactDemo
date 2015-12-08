@@ -27,21 +27,12 @@ export default class Table extends React.Component {
                 prop: prop
             }
         })
-    }
-
-    checkShowRemoveSelected() {
-        for (let user of usersStore.data) {
-            // TODO: Need to break loop on single check
-            (user.selected) ? this.setState({ btnDisable: false }) : this.setState({ btnDisable: true });
-        }
-    }
+    } 
 
     handleSelect(item, e) {
         let copy = Object.assign({}, item);
         copy.selected = e.target.checked;
         usersStore.update(copy.id, copy);
-        
-        this.checkShowRemoveSelected();
     }
 
     handleSelectAll(e) {
@@ -50,16 +41,17 @@ export default class Table extends React.Component {
             return item;
         });
         usersStore.setAll(newData);
-
-        this.checkShowRemoveSelected();
     }
 
     generateTableControls(){
+        let users = usersStore.getAll();
+        let selected = users.filter((item) => item.selected);
+
         return(
             <div className="row">
                 <div className="col-lg-9">
                     <TableNavBar>
-                        <RemoveSelectedRow enableBtn={ this.state.btnDisable } />
+                        <RemoveSelectedRow enableBtn={ !selected.length } />
                     </TableNavBar>
                 </div>
                 <div className="col-lg-3">
