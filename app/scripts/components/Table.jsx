@@ -156,7 +156,7 @@ export default class Table extends React.Component {
                 {this.generateTableControls()}
 
                 <If test={this.props.tableData.length}>
-                    <table className="table table-bordered table-hover col-lg-12">
+                    <table className="table table-bordered table-hover">
                         {this.generateTableHead()}
                         <tbody>
                             {this.generateTableRows()}
