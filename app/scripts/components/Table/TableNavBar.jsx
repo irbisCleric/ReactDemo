@@ -16,7 +16,7 @@ export class TableNavBar extends React.Component {
     render() {
         return (
             <div className="btn-group" style={{marginBottom: 10 + 'px'}}>
-                <RemoveSelectedRow />
+                { this.props.children }
             </div>
         )
     }
