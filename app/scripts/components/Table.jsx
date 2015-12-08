@@ -5,6 +5,7 @@ import { Button, Modal, OverlayTrigger, Popover } from 'react-bootstrap';
 import usersActions from '../actions/usersActions';
 import usersStore from '../stores/usersStore';
 import { EditRow } from './Table/EditRow';
+import { RemoveSelectedRow } from './Table/RemoveSelectedRow';
 
 export default class Table extends React.Component {
     constructor(props) {
@@ -45,7 +46,7 @@ export default class Table extends React.Component {
         return(
             <div className="row">
                 <div className="col-lg-9">
-                    The remove button will be here...
+                    <RemoveSelectedRow />
                 </div>
                 <div className="col-lg-3">
                     <input
