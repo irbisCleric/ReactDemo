@@ -24,23 +24,33 @@ export default class CreateUser extends React.Component {
         this.setState({user: {}});
         this.props.history.pushState(null, 'users');
     }
-    enableButton () {
+
+    enableButton() {
         this.setState({
             canSubmit: true
         });
     }
+
     disableButton() {
         this.setState({
             canSubmit: false
         });
     }
+
     render() {
         return (
-            <Formsy.Form onValidSubmit={this.handleSubmit.bind(this)} onValid={this.enableButton.bind(this)} onInvalid={this.disableButton.bind(this)}>
-                <MyInput name="name" validationError="This field is required" change={this.handleChange.bind(this)} required/>
-                <MyInput name="email" validations="isEmail" validationError="Please, enter valid email" change={this.handleChange.bind(this)} required/>
-                <button className="btn btn-submit" type="submit" disabled={!this.state.canSubmit}>Submit</button>
-            </Formsy.Form>
+            <div className="row">
+                <Formsy.Form
+                    className="col-lg-4"
+                    onValidSubmit={this.handleSubmit.bind(this)} onValid={this.enableButton.bind(this)}
+                    onInvalid={this.disableButton.bind(this)}>
+                    <MyInput name="name" validationError="This field is required" change={this.handleChange.bind(this)}
+                             required/>
+                    <MyInput name="email" validations="isEmail" validationError="Please, enter valid email"
+                             change={this.handleChange.bind(this)} required/>
+                    <button className="btn btn-submit" type="submit" disabled={!this.state.canSubmit}>Submit</button>
+                </Formsy.Form>
+            </div>
         )
     }
 }
