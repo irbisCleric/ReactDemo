@@ -10,5 +10,6 @@ export default keyMirror({
     OPEN_DELETE_USER_MODAL: null,
     SORT_USERS: null,
     FILTER_USERS: null,
-    TOGGLE_EDIT_MODE: null
+    TOGGLE_EDIT_MODE: null,
+    SAVE_USER: null
 });

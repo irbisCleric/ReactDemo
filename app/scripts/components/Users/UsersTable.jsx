@@ -35,8 +35,8 @@ export default class UsersTable extends React.Component {
                         func: (user) => {
                             usersActions.toggleEditMode(user);
                         },
-                        secondaryFunc: (user, save) => {
-                            //usersActions.toggleEditMode(user, save);
+                        secondaryFunc: (user) => {
+                            usersStore.saveUser(user);
                         }
                     }
                 }

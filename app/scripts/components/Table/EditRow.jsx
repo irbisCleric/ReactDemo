@@ -13,12 +13,8 @@ export class EditRow extends React.Component {
     }
 
     save(toSave){
-        if (toSave){
-            this.props.save(this.props.item, toSave);
-        } else {
-            usersStore.updateTEST(this.state.currentItem.id, usersStore.getCurrent());
-        }
-
+        let UserToSave = toSave ? this.state.currentItem : usersStore.getCurrent();
+        this.props.save(UserToSave);
     }
 
     render() {

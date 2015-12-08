@@ -89,8 +89,8 @@ export default class Table extends React.Component {
                                 overlay={
                                     <Popover id="some-id-{i}">
                                         <If test={this.TO.actions.edit}>
-                                            <Button className="btn btn-primary">
-                                                <i className="glyphicon glyphicon-pencil" onClick={this.TO.actions.edit.func.bind(this,item)}></i>
+                                            <Button className="btn btn-primary" onClick={this.TO.actions.edit.func.bind(this,item)}>
+                                                <i className="glyphicon glyphicon-pencil"></i>
                                             </Button>
                                         </If>
                                         <If test={this.TO.actions.remove}>

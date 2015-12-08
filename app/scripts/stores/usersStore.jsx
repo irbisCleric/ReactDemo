@@ -93,11 +93,12 @@ class userStore extends BaseStore {
     getCurrent () {
         return _currentUser;
     }
-    updateTEST (id, user){
-        let userObj = this.getById(id);
-        userObj.showEdit = false;
-        this.update(id, userObj);
+
+    saveUser (user){
+        user.showEdit = false;
+        this.update(user.id, user);
     }
+
 }
 
 let store = new userStore();
@@ -128,6 +129,9 @@ appDispatcher.register((payload) => {
             break;
         case appConstants.TOGGLE_EDIT_MODE:
             store.toggleEditUser(payload.user);
+            break;
+        case appConstants.SAVE_USER:
+            store.saveUser(payload.user);
             break;
     }
 
