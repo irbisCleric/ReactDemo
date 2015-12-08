@@ -29,7 +29,7 @@ class userStore extends BaseStore {
         modalData = {};
         if (id) {
             let item = this.getById(id);
-            originalUsers.delete(item);
+            //originalUsers.delete(item);
 
             this.removeById(id);
         }
@@ -136,6 +136,6 @@ appDispatcher.register((payload) => {
     }
 
     return true;
-})
+});
 
 export default store;
