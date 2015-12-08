@@ -4,15 +4,16 @@ export class EditRow extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentItem : Object.assign({}, usersStore.getCurrent())
+            currentItem: Object.assign({}, usersStore.getCurrent())
         }
     }
-    handleEdit(item, fieldName, e) {
+
+    handleEdit(fieldName, e) {
         this.state.currentItem[fieldName] = e.target.value;
-        this.setState({currentItem : this.state.currentItem});
+        this.setState({currentItem: this.state.currentItem});
     }
 
-    save(toSave){
+    save(toSave) {
         let UserToSave = toSave ? this.state.currentItem : usersStore.getCurrent();
         this.props.save(UserToSave);
     }
@@ -22,7 +23,7 @@ export class EditRow extends React.Component {
             <div className="input-group">
                 <input type="text"
                        className="form-control"
-                       onChange={this.handleEdit.bind(this, this.state.currentItem, this.props.fieldName)}
+                       onChange={this.handleEdit.bind(this, this.props.fieldName)}
                        placeholder={'Input ' + this.props.fieldName}
                        value={this.state.currentItem[this.props.fieldName]}
                 />
