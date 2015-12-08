@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import { Link } from 'react-router';
 import If from './helpers/If';
-import { Button, Modal, OverlayTrigger, Popover } from 'react-bootstrap';
+import { Button, Modal, OverlayTrigger, Popover, Pagination } from 'react-bootstrap';
 import usersActions from '../actions/usersActions';
 import usersStore from '../stores/usersStore';
 import { EditRow } from './Table/EditRow';
@@ -15,7 +15,8 @@ export default class Table extends React.Component {
             filterText: '',
             sort: {},
             data: this.props.tableData,
-            btnDisable: true
+            btnDisable: true,
+            activePage: 1
         }
     }
 
@@ -28,6 +29,13 @@ export default class Table extends React.Component {
             }
         })
     } 
+
+    handlePagination(event, selectedEvent) {
+        event.preventDefault();
+        this.setState({
+          activePage: selectedEvent.eventKey
+        });
+    }
 
     handleSelect(item, e) {
         let copy = Object.assign({}, item);
@@ -177,6 +185,13 @@ export default class Table extends React.Component {
                         </tbody>
                     </table>
                 </If>
+
+                <Pagination
+                  bsSize="medium"
+                  items={10}
+                  activePage={this.state.activePage}
+                  onSelect={this.handlePagination.bind(this)} />
+                <br />
 
                 {this.props.children}
             </div>
