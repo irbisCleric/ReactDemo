@@ -84,10 +84,9 @@ class userStore extends BaseStore {
     }
 
     toggleEditUser(user){
-        let userObj = this.getById(user.id);
-        userObj.showEdit = !userObj.showEdit;
-        this.update(user.id, userObj);
-        _currentUser = Object.assign({}, userObj);
+        user.showEdit = !user.showEdit;
+        _currentUser = user;
+        this.update(user.id, _currentUser);
     }
 
     getCurrent () {
@@ -97,6 +96,7 @@ class userStore extends BaseStore {
     saveUser (user){
         user.showEdit = false;
         this.update(user.id, user);
+        _currentUser = null;
     }
 
 }
