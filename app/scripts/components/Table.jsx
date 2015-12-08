@@ -14,7 +14,8 @@ export default class Table extends React.Component {
         this.state = {
             filterText: '',
             sort: {},
-            data: this.props.tableData
+            data: this.props.tableData,
+            btnDisable: true
         }
     }
 
@@ -28,10 +29,19 @@ export default class Table extends React.Component {
         })
     }
 
+    checkShowRemoveSelected() {
+        for (let user of usersStore.data) {
+            // TODO: Need to break loop on single check
+            (user.selected) ? this.setState({ btnDisable: false }) : this.setState({ btnDisable: true });
+        }
+    }
+
     handleSelect(item, e) {
         let copy = Object.assign({}, item);
         copy.selected = e.target.checked;
         usersStore.update(copy.id, copy);
+        
+        this.checkShowRemoveSelected();
     }
 
     handleSelectAll(e) {
@@ -40,6 +50,8 @@ export default class Table extends React.Component {
             return item;
         });
         usersStore.setAll(newData);
+
+        this.checkShowRemoveSelected();
     }
 
     generateTableControls(){
@@ -47,7 +59,7 @@ export default class Table extends React.Component {
             <div className="row">
                 <div className="col-lg-9">
                     <TableNavBar>
-                        <RemoveSelectedRow />
+                        <RemoveSelectedRow enableBtn={ this.state.btnDisable } />
                     </TableNavBar>
                 </div>
                 <div className="col-lg-3">
@@ -66,37 +78,43 @@ export default class Table extends React.Component {
     generateTableHead() {
         return (
             <thead>
-                <tr>
-                    { this.TO.selectable ?
-                        <th>
-                            <input type="checkbox" onChange={this.handleSelectAll.bind(this)}/>
-                        </th>
-                        : null}
-                    {
-                        this.TO.tableTitles.map((title, i) => {
-                            return (
-                                <th key={i}
-                                    className={ (this.TO.tableFields[i] === this.state.sort.prop) ? 'sort' : '' }
-                                    onClick={this.sort.bind(this, i)}>{title}</th>);
+            <tr>
+                { this.TO.selectable ?
+                <th>
+                    <input type="checkbox" onChange={this.handleSelectAll.bind(this)}/>
+                </th>
+                    : null}
+                {
+                    this.TO.tableTitles.map((title, i) => {
+                        return (
+                        <th key={i}
+                            className={ (this.TO.tableFields[i] === this.state.sort.prop) ? 'sort' : '' }
+                            onClick={this.sort.bind(this, i)}>{title}</th>);
                         })
                     }
-                    <If test={this.TO.actions}>
-                        <th>Actions</th>
-                    </If>
-                </tr>
+                <If test={this.TO.actions}>
+                    <th>Actions</th>
+                </If>
+            </tr>
             </thead>
         )
     }
 
     generateTableRows() {
         return this.props.tableData.map((item, i) => {
+            let rowClass = (item.selected === true) ? 'danger' : '';
+
             return (
-                <tr key={i}>
+                <tr key={i}
+                    className={ rowClass }>
                     {
                         this.TO.selectable ?
-                            <td>
-                                <input type="checkbox" checked={item.selected} onChange={this.handleSelect.bind(this,item)} />
-                            </td>
+                        <td
+                            style={{verticalAlign: 'middle'}}>
+                            <input type="checkbox" checked={item.selected}
+                                   onChange={this.handleSelect.bind(this, item)}
+                            />
+                        </td>
                             : null
                         }
                     {this.generateTableRowData(item)}
@@ -109,7 +127,8 @@ export default class Table extends React.Component {
     generateTableRowData(item) {
         return this.TO.tableFields.map((fieldName, i) => {
             return (
-                <td key={i}>
+                <td key={i}
+                    style={{verticalAlign: 'middle'}}>
                     <If test={item.showEdit}>
                         <EditRow fieldName={fieldName} item={item} save={this.TO.actions.edit.saveFunc}/>
                     </If>
@@ -129,7 +148,7 @@ export default class Table extends React.Component {
                         placement="top"
                         rootClose
                         overlay={
-                            <Popover id="some-id-{i}">
+                            <Popover id={'some-id-'+ item.id }>
                                 <If test={this.TO.actions.edit}>
                                     <Button className="btn btn-primary" onClick={this.TO.actions.edit.editFunc.bind(this,item)}>
                                         <i className="glyphicon glyphicon-pencil"></i>
@@ -137,7 +156,7 @@ export default class Table extends React.Component {
                                 </If>
                                 <If test={this.TO.actions.remove}>
                                     <Button
-                                        className="btn btn-danger"
+                                        className="btn-danger"
                                         onClick={this.TO.actions.remove.func.bind(this, item)}>
                                         <i className="glyphicon glyphicon-trash"></i>
                                     </Button>
