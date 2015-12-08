@@ -28,9 +28,8 @@ class userStore extends BaseStore {
     deleteUser(id) {
         modalData = {};
         if (id) {
-            //let item = this.getById(id);
-            //originalUsers.delete(item);
-
+            let item = this.getById(id);
+            originalUsers && originalUsers.delete(item);
             this.removeById(id);
         }
     }
@@ -59,22 +58,19 @@ class userStore extends BaseStore {
     }
 
     filterUsers(e) {
-        let temp;
-        let result = [];
+        let result;
         let value = e.target.value.trim();
         
-        if (originalUsers) {
-            temp = Array.from(originalUsers);
-        } else {
+        // we just start filtering and make copy of users   
+        if (!originalUsers) {
             originalUsers = this.data;
-            temp = Array.from(this.data);
+            result = Array.from(this.data);
+        } else {
+        // we still filtering and manipulate with copy of original list of users            
+            result = Array.from(originalUsers);
         }
 
-        temp.forEach((item) => {
-            if (item.name.indexOf(value) !== -1) {
-                result.push(item);
-            }
-        });
+        result = result.filter((item) => (item.name.indexOf(value) !== -1));
 
         if (value === '') {
             originalUsers = null;
