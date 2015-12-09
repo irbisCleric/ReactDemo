@@ -8,8 +8,8 @@ import If from './helpers/If';
 import usersStore from './../stores/usersStore';
 
 class TableHead extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.TO = this.props.tableOptions;
         this.TA = this.props.tableActions;
         this.sort = this.props.sort;
@@ -28,7 +28,7 @@ class TableHead extends React.Component {
                     this.TO.tableTitles.map((title, i) => {
                         return (
                         <th key={i}
-                            className={ (this.TO.tableFields[i] === this.state.sort.prop) ? 'sort' : '' }
+                            className={ (this.TO.tableFields[i] === this.props.sortProp) ? 'sort' : '' }
                             onClick={this.sort.bind(this, i)}>{title}
                         </th>
                             );
@@ -99,31 +99,6 @@ export default class Table extends React.Component {
             </div>
         )
     }
-
-    /*generateTableHead() {
-     return (
-     <thead>
-     <tr>
-     { this.TO.selectable ?
-     <th>
-     <input type="checkbox" onChange={this.TA.handleSelectAll.bind(this)}/>
-     </th>
-     : null}
-     {
-     this.TO.tableTitles.map((title, i) => {
-     return (
-     <th key={i}
-     className={ (this.TO.tableFields[i] === this.state.sort.prop) ? 'sort' : '' }
-     onClick={this.sort.bind(this, i)}>{title}</th>);
-     })
-     }
-     <If test={this.TA}>
-     <th>Actions</th>
-     </If>
-     </tr>
-     </thead>
-     )
-     }*/
 
     generateTableRows() {
         return this.props.tableData.map((item, i) => {
@@ -207,9 +182,10 @@ export default class Table extends React.Component {
                 <If test={this.props.tableData.length}>
                     <table className="table table-bordered table-hover">
                         <TableHead
-                            tableOptions={ this.TA }
-                            tableActions={ this.TO }
+                            tableOptions={ this.TO }
+                            tableActions={ this.TA }
                             sort={ this.sort }
+                            sortProp={ this.state.sort.prop }
                         />
                         <tbody>
                         {this.generateTableRows()}
