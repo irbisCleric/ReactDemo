@@ -7,6 +7,43 @@ import { TableNavBar, RemoveSelectedRow } from './Table/TableNavBar';
 import If from './helpers/If';
 import usersStore from './../stores/usersStore';
 
+class TableHead extends React.Component {
+    constructor() {
+        super();
+        this.TO = this.props.tableOptions;
+        this.TA = this.props.tableActions;
+        this.sort = this.props.sort;
+    }
+
+    render() {
+        return (
+            <thead>
+            <tr>
+                { this.TO.selectable ?
+                <th>
+                    <input type="checkbox" onChange={ this.TA.handleSelectAll.bind(this) }/>
+                </th>
+                    : null}
+                {
+                    this.TO.tableTitles.map((title, i) => {
+                        return (
+                        <th key={i}
+                            className={ (this.TO.tableFields[i] === this.state.sort.prop) ? 'sort' : '' }
+                            onClick={this.sort.bind(this, i)}>{title}
+                        </th>
+                            );
+                        })
+                    }
+                <If test={this.TA}>
+                    <th>Actions</th>
+                </If>
+            </tr>
+            </thead>
+        )
+    }
+}
+
+
 export default class Table extends React.Component {
     constructor(props) {
         super(props);
@@ -39,14 +76,6 @@ export default class Table extends React.Component {
         });
     }
 
-    handleSelectAll(e) {
-        let newData = this.props.tableData.map((item, i) => {
-            item.selected = e.target.checked;
-            return item;
-        });
-        usersStore.setAll(newData);
-    }
-
     generateTableControls() {
         let users = usersStore.getAll();
         let selected = users.filter((item) => item.selected);
@@ -71,30 +100,30 @@ export default class Table extends React.Component {
         )
     }
 
-    generateTableHead() {
-        return (
-            <thead>
-            <tr>
-                { this.TO.selectable ?
-                <th>
-                    <input type="checkbox" onChange={this.handleSelectAll.bind(this)}/>
-                </th>
-                    : null}
-                {
-                    this.TO.tableTitles.map((title, i) => {
-                        return (
-                        <th key={i}
-                            className={ (this.TO.tableFields[i] === this.state.sort.prop) ? 'sort' : '' }
-                            onClick={this.sort.bind(this, i)}>{title}</th>);
-                        })
-                    }
-                <If test={this.TA}>
-                    <th>Actions</th>
-                </If>
-            </tr>
-            </thead>
-        )
-    }
+    /*generateTableHead() {
+     return (
+     <thead>
+     <tr>
+     { this.TO.selectable ?
+     <th>
+     <input type="checkbox" onChange={this.TA.handleSelectAll.bind(this)}/>
+     </th>
+     : null}
+     {
+     this.TO.tableTitles.map((title, i) => {
+     return (
+     <th key={i}
+     className={ (this.TO.tableFields[i] === this.state.sort.prop) ? 'sort' : '' }
+     onClick={this.sort.bind(this, i)}>{title}</th>);
+     })
+     }
+     <If test={this.TA}>
+     <th>Actions</th>
+     </If>
+     </tr>
+     </thead>
+     )
+     }*/
 
     generateTableRows() {
         return this.props.tableData.map((item, i) => {
@@ -177,7 +206,11 @@ export default class Table extends React.Component {
 
                 <If test={this.props.tableData.length}>
                     <table className="table table-bordered table-hover">
-                        {this.generateTableHead()}
+                        <TableHead
+                            tableOptions={ this.TA }
+                            tableActions={ this.TO }
+                            sort={ this.sort }
+                        />
                         <tbody>
                         {this.generateTableRows()}
                         </tbody>

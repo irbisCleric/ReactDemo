@@ -46,6 +46,13 @@ export default class UsersTable extends React.Component {
                     copy.selected = e.target.checked;
 
                     usersStore.update(copy.id, copy);
+                },
+                handleSelectAll(e) {
+                    let newData = this.props.tableData.map((item) => {
+                        item.selected = e.target.checked;
+                        return item;
+                    });
+                    usersStore.setAll(newData);
                 }
             }
         };
