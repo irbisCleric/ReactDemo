@@ -1,12 +1,13 @@
 import $ from 'jquery';
 import { Link } from 'react-router';
-import If from '../helpers/If';
-import Table from '../Table';
-import DeleteUserModal from './DeleteUserModal';
 import { Button, Modal } from 'react-bootstrap';
+import DeleteUserModal from './DeleteUserModal';
 
-import usersActions from '../../actions/usersActions';
-import usersStore from '../../stores/usersStore';
+import If from './../helpers/If';
+import Table from './../Table';
+
+import usersActions from './../../actions/usersActions';
+import usersStore from './../../stores/usersStore';
 
 export default class UsersTable extends React.Component {
     constructor(props) {
@@ -21,24 +22,30 @@ export default class UsersTable extends React.Component {
                 },
                 sort: (prop) => {
                     usersActions.sortUsers(prop);
-                },
-                actions: {
-                    remove: {
-                        func: (user) => {
-                            usersActions.deleteUserModal(user);
-                        },
-                        secondaryFunc: (user) => {
-                            usersActions.deleteUser(user);
-                        }
+                }
+            },
+            tableActions: {
+                editUser: {
+                    editFunc: (user) => {
+                        usersActions.toggleEditMode(user);
                     },
-                    edit: {
-                        editFunc: (user) => {
-                            usersActions.toggleEditMode(user);
-                        },
-                        saveFunc: (user) => {
-                            usersStore.saveUser(user);
-                        }
+                    saveFunc: (user) => {
+                        usersStore.saveUser(user);
                     }
+                },
+                removeUser: {
+                    btnAction: (user) => {
+                        usersActions.deleteUserModal(user);
+                    },
+                    modalAction: (user) => {
+                        usersActions.deleteUser(user);
+                    }
+                },
+                handleSelect(item, e) {
+                    let copy = Object.assign({}, item);
+                    copy.selected = e.target.checked;
+
+                    usersStore.update(copy.id, copy);
                 }
             }
         };
@@ -48,13 +55,14 @@ export default class UsersTable extends React.Component {
         return (
             <Table
                 tableData={this.props.tableData}
-                tableOptions={this.state.tableOptions}>
+                tableOptions={this.state.tableOptions}
+                tableActions={this.state.tableActions}>
 
                 <If test={!this.props.tableData.length}>
                     <h2>No users</h2>
                 </If>
 
-                <DeleteUserModal deleteFunc={this.state.tableOptions.actions.remove.secondaryFunc}/>
+                <DeleteUserModal deleteFunc={this.state.tableActions.removeUser.modalAction}/>
             </Table>
         )
     }

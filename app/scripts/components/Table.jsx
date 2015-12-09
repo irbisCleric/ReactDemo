@@ -1,16 +1,18 @@
 import $ from 'jquery';
 import { Link } from 'react-router';
-import If from './helpers/If';
 import { Button, Modal, OverlayTrigger, Popover, Pagination } from 'react-bootstrap';
-import usersActions from '../actions/usersActions';
-import usersStore from '../stores/usersStore';
 import { EditRow } from './Table/EditRow';
 import { TableNavBar, RemoveSelectedRow } from './Table/TableNavBar';
+
+import If from './helpers/If';
+import usersStore from './../stores/usersStore';
 
 export default class Table extends React.Component {
     constructor(props) {
         super(props);
         this.TO = this.props.tableOptions;
+        this.TA = this.props.tableActions;
+
         this.state = {
             filterText: '',
             sort: {},
@@ -28,19 +30,13 @@ export default class Table extends React.Component {
                 prop: prop
             }
         })
-    } 
+    }
 
     handlePagination(event, selectedEvent) {
         event.preventDefault();
         this.setState({
-          activePage: selectedEvent.eventKey
+            activePage: selectedEvent.eventKey
         });
-    }
-
-    handleSelect(item, e) {
-        let copy = Object.assign({}, item);
-        copy.selected = e.target.checked;
-        usersStore.update(copy.id, copy);
     }
 
     handleSelectAll(e) {
@@ -51,15 +47,15 @@ export default class Table extends React.Component {
         usersStore.setAll(newData);
     }
 
-    generateTableControls(){
+    generateTableControls() {
         let users = usersStore.getAll();
         let selected = users.filter((item) => item.selected);
 
-        return(
+        return (
             <div className="row">
                 <div className="col-lg-9">
                     <TableNavBar>
-                        <RemoveSelectedRow enableBtn={ !selected.length } />
+                        <RemoveSelectedRow enableBtn={ !selected.length }/>
                     </TableNavBar>
                 </div>
                 <div className="col-lg-3">
@@ -92,7 +88,7 @@ export default class Table extends React.Component {
                             onClick={this.sort.bind(this, i)}>{title}</th>);
                         })
                     }
-                <If test={this.TO.actions}>
+                <If test={this.TA}>
                     <th>Actions</th>
                 </If>
             </tr>
@@ -112,7 +108,7 @@ export default class Table extends React.Component {
                         <td
                             style={{verticalAlign: 'middle'}}>
                             <input type="checkbox" checked={item.selected}
-                                   onChange={this.handleSelect.bind(this, item)}
+                                   onChange={this.TA.handleSelect.bind(this, item)}
                             />
                         </td>
                             : null
@@ -130,7 +126,7 @@ export default class Table extends React.Component {
                 <td key={i}
                     style={{verticalAlign: 'middle'}}>
                     <If test={item.showEdit}>
-                        <EditRow fieldName={fieldName} item={item} save={this.TO.actions.edit.saveFunc}/>
+                        <EditRow fieldName={fieldName} item={item} save={this.TA.editUser.saveFunc}/>
                     </If>
                     <If test={!item.showEdit}>
                         <Link to={"users/" + item.name}>{item[fieldName]}</Link>
@@ -140,25 +136,27 @@ export default class Table extends React.Component {
     }
 
     generateTableRowActions(item) {
-        return  (
-            <If test={this.TO.actions}>
+        return (
+            <If test={this.TA}>
                 <td>
                     <OverlayTrigger
                         trigger="click"
                         placement="top"
                         rootClose
                         overlay={
-                            <Popover id={'some-id-'+ item.id }>
-                                <If test={this.TO.actions.edit}>
-                                    <Button className="btn btn-primary" onClick={this.TO.actions.edit.editFunc.bind(this,item)}>
-                                        <i className="glyphicon glyphicon-pencil"></i>
+                            <Popover id={'some-id-'+ item.id}>
+                                <If test={ this.TA.editUser }>
+                                    <Button
+                                        className="btn btn-primary"
+                                        onClick={ this.TA.editUser.editFunc.bind(this, item) }>
+                                            <i className="glyphicon glyphicon-pencil"></i>
                                     </Button>
                                 </If>
-                                <If test={this.TO.actions.remove}>
+                                <If test={this.TA.removeUser}>
                                     <Button
                                         className="btn-danger"
-                                        onClick={this.TO.actions.remove.func.bind(this, item)}>
-                                        <i className="glyphicon glyphicon-trash"></i>
+                                        onClick={this.TA.removeUser.btnAction.bind(this, item)}>
+                                            <i className="glyphicon glyphicon-trash"></i>
                                     </Button>
                                 </If>
                             </Popover>
@@ -181,17 +179,16 @@ export default class Table extends React.Component {
                     <table className="table table-bordered table-hover">
                         {this.generateTableHead()}
                         <tbody>
-                            {this.generateTableRows()}
+                        {this.generateTableRows()}
                         </tbody>
                     </table>
                 </If>
 
                 <Pagination
-                  bsSize="medium"
-                  items={10}
-                  activePage={this.state.activePage}
-                  onSelect={this.handlePagination.bind(this)} />
-                <br />
+                    bsSize="medium"
+                    items={10}
+                    activePage={this.state.activePage}
+                    onSelect={this.handlePagination.bind(this)}/>
 
                 {this.props.children}
             </div>
@@ -201,6 +198,7 @@ export default class Table extends React.Component {
 
 Table.propTypes = {
     tableOptions: React.PropTypes.object.isRequired,
+    tableActions: React.PropTypes.object.isRequired,
     tableData: React.PropTypes.array.isRequired
 };
 
