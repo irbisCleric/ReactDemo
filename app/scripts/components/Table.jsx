@@ -28,8 +28,15 @@ class TableHead extends React.Component {
                     this.TO.tableTitles.map((title, i) => {
                         return (
                         <th key={i}
-                            className={ (this.TO.tableFields[i] === this.props.sortProp) ? 'sort' : '' }
-                            onClick={this.sort.bind(this, i)}>{title}
+                            onClick={this.sort.bind(this, i)}>
+                                {title}
+                                <If test={ this.TO.tableFields[i] !== this.props.sortProp }>
+                                    <i className="glyphicon glyphicon-sort pull-right"></i>
+                                </If>
+                                <If test={ this.TO.tableFields[i] === this.props.sortProp }>
+                                    <i className="glyphicon glyphicon-sort-by-attributes pull-right"></i>
+                                    <i className="glyphicon glyphicon-sort-by-attributes-alt pull-right"></i>
+                                </If>
                         </th>
                             );
                         })
