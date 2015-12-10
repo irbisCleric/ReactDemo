@@ -149,7 +149,7 @@ export default class Table extends React.Component {
                         <EditRow fieldName={fieldName} item={item} save={this.TA.editUser.saveFunc}/>
                     </If>
                     <If test={!item.showEdit}>
-                        <Link to={"users/" + item.name}>{item[fieldName]}</Link>
+                        <Link to={"users/" + item.id}>{item[fieldName]}</Link>
                     </If>
                 </td>)
         })

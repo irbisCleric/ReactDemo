@@ -32,9 +32,10 @@ app.get('/api/list', function (req, res) {
 
 app.get('/api/list/:user_id', function (req, res) {
     var jsonData = readJsonFileSync(__dirname + dataPath.LIST, 'utf-8');
+    res.contentType('application/json');
 
     jsonData.forEach(function (userObj) {
-        if (userObj.user_id === Number(req.params.user_id)) {
+        if (userObj.id === Number(req.params.user_id)) {
             res.contentType('application/json');
             res.send(userObj);
         }

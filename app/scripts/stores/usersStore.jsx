@@ -14,7 +14,8 @@ class userStore extends BaseStore {
     }
 
     getHttpAll(callback) {
-        let url = "http://www.filltext.com/?rows=10&email={email}&name={firstName}&id={index}&desc={lorem|20}";
+        //let url = "http://www.filltext.com/?rows=10&email={email}&name={firstName}&id={index}&desc={lorem|20}";
+        let url = "http://localhost:1715/api/list";
         $.get(url, (result) => {
             this.data = new Set(result);
             callback(result);
