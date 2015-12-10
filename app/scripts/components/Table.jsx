@@ -60,10 +60,9 @@ export default class Table extends React.Component {
         this.state = {
             filterText: '',
             sort: {prop: null},
-            data: this.props.tableData,
             btnDisable: true,
             activePage: 1
-        }
+        };
         this.sort = this.sort.bind(this);
     }
 

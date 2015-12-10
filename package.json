@@ -35,7 +35,7 @@
     "webpack-dev-server": "^1.9.0"
   },
   "scripts": {
-    "start": "npm install && webpack-dev-server --hot --progress --colors && npm run server",
+    "start": "npm install && webpack-dev-server --hot --progress --colors",
     "server": "node server/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "./node_modules/.bin/http-server -p 8080",
