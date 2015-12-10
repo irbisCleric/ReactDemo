@@ -37,9 +37,9 @@ export default class Users extends React.Component {
 
     getStateFromStores(){
         return  {
-            tableData: usersStore.getAll().splice(
+            tableData: usersStore.getAll().slice(
                 usersStore.getActivePage() * usersStore.getLimit(),
-                usersStore.getLimit()),
+                (usersStore.getActivePage() + 1) * usersStore.getLimit()),
             activePage: usersStore.getActivePage(),
             limit: usersStore.getLimit(),
             total: usersStore.getTotal()
