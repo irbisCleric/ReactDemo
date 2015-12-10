@@ -89,6 +89,8 @@ export default class Table extends React.Component {
         this.setState({
             activePage: selectedEvent.eventKey
         });
+        //TODO move to user specific file
+        usersStore.setActivePage(this.state.activePage);
     }
 
     generateTableControls() {

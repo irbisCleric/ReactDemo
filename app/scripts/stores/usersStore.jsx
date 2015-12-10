@@ -6,11 +6,28 @@ import appConstants from '../constants/appConstants';
 
 let modalData = {},
      originalUsers = null,
-     _currentUser = null;
+     _currentUser = null,
+
+     _activePage = 0,
+     _limit = 5;
 
 class userStore extends BaseStore {
     constructor(...args) {
         super(...args);
+    }
+    getActivePage(){
+        return _activePage;
+    }
+    setActivePage(n){
+        _activePage = n;
+        this.emitChange();
+    }
+    getLimit(){
+        return _limit;
+    }
+    setLimit(l){
+        _limit = l;
+        this.emitChange();
     }
 
     getHttpAll(callback) {

@@ -28,15 +28,24 @@ export default class Users extends React.Component {
     componentDidMount() {
         if (usersStore.getAll().length < 1) {
             usersStore.getHttpAll((results)=> {
-                this._onChange(results);
+                usersStore.setAll(results);
             })
         } else {
             this._onChange();
         }
     }
 
-    _onChange(data = usersStore.getAll()) {
-        this.setState({tableData: data});
+    getStateFromStores(){
+        return  {
+            tableData: usersStore.getAll().splice(
+                usersStore.getActivePage() * usersStore.getLimit(),
+                usersStore.getLimit())
+        }
+    }
+
+    _onChange() {
+        let state = this.getStateFromStores();
+        this.setState(state);
     }
 
     render() {
