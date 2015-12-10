@@ -39,6 +39,10 @@ export default class BaseStore extends EventEmitter {
         return Array.from(this.data);
     }
 
+    getSize(){
+        return this.data.size;
+    }
+
     getById(id) {
         let result;
         for (let item of this.data) {

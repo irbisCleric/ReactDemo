@@ -212,7 +212,7 @@ export default class Table extends React.Component {
 
                 <Pagination
                     bsSize="medium"
-                    items={10}
+                    items={this.props.total}
                     activePage={this.state.activePage}
                     onSelect={this.handlePagination.bind(this)}/>
 

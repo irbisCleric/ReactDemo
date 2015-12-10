@@ -30,6 +30,10 @@ class userStore extends BaseStore {
         this.emitChange();
     }
 
+    getTotal(){
+        return this.getSize() / this.getLimit();
+    }
+
     getHttpAll(callback) {
         //let url = "http://www.filltext.com/?rows=10&email={email}&name={firstName}&id={index}&desc={lorem|20}";
         let url = "http://localhost:1715/api/list";

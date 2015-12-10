@@ -39,7 +39,10 @@ export default class Users extends React.Component {
         return  {
             tableData: usersStore.getAll().splice(
                 usersStore.getActivePage() * usersStore.getLimit(),
-                usersStore.getLimit())
+                usersStore.getLimit()),
+            activePage: usersStore.getActivePage(),
+            limit: usersStore.getLimit(),
+            total: usersStore.getTotal()
         }
     }
 
@@ -51,7 +54,7 @@ export default class Users extends React.Component {
     render() {
         return (
             <div className={this.props.className}>
-                <UsersTable tableData={this.state.tableData}/>
+                <UsersTable {...this.state}/>
             </div>
         )
     }

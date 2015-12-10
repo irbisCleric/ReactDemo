@@ -62,8 +62,8 @@ export default class UsersTable extends React.Component {
         return (
             <Table
                 tableData={this.props.tableData}
-                tableOptions={this.state.tableOptions}
-                tableActions={this.state.tableActions}>
+                total={this.props.total}
+                {...this.state}>
 
                 <If test={!this.props.tableData.length}>
                     <h2>No users</h2>
