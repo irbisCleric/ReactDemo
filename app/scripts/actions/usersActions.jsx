@@ -25,10 +25,11 @@ export default {
             data: data
         })
     },
-    sortUsers: function(prop){
+    sortUsers: function(prop, desc){
         appDispatcher.dispatch({
             actionType: appConstants.SORT_USERS,
-            prop: prop
+            prop: prop,
+            desc: desc
         })
     },
     filterUsers:function(e){

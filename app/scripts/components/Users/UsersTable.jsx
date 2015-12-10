@@ -20,8 +20,8 @@ export default class UsersTable extends React.Component {
                 filter: (e) => {
                     usersActions.filterUsers(e);
                 },
-                sort: (prop) => {
-                    usersActions.sortUsers(prop);
+                sort: (prop, desc) => {
+                    usersActions.sortUsers(prop, desc);
                 }
             },
             tableActions: {

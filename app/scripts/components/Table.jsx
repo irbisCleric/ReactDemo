@@ -68,7 +68,15 @@ export default class Table extends React.Component {
 
     sort(i) {
         let prop = this.TO.tableFields[i];
-        this.TO.sort(prop);
+        let desc = false;
+        if( this.state ){
+            if (this.state.sort.prop === prop){
+                desc = true;
+                prop = null;
+            }
+        }
+
+        this.TO.sort(prop, desc);
         this.setState({
             sort: {
                 prop: prop

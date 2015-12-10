@@ -43,7 +43,7 @@ class userStore extends BaseStore {
         return modalData;
     }
 
-    sortUsers(prop) {
+    sortUsers(prop, desc) {
         function compare(a, b) {
             if (a[prop] < b[prop])
                 return -1;
@@ -53,8 +53,11 @@ class userStore extends BaseStore {
         }
 
         let users = this.getAll();
-
-        this.setAll(users.sort(compare));
+        let sortedUsers = users.sort(compare);
+        if(desc){
+            sortedUsers = sortedUsers.reverse();
+        }
+        this.setAll(sortedUsers);
     }
 
     filterUsers(e) {
@@ -118,7 +121,7 @@ appDispatcher.register((payload) => {
             store.openDeleteUserModal(payload.data);
             break;
         case appConstants.SORT_USERS:
-            store.sortUsers(payload.prop);
+            store.sortUsers(payload.prop, payload.desc);
             break;
         case appConstants.FILTER_USERS:
             store.filterUsers(payload.text);
