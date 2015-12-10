@@ -16,6 +16,10 @@ class TableHead extends React.Component {
     }
 
     render() {
+        let sortClassName = 'pull-right glyphicon glyphicon-sort-by-attributes';
+        if (this.props.sortState.desc){
+            sortClassName += '-alt';
+        }
         return (
             <thead>
             <tr>
@@ -30,12 +34,8 @@ class TableHead extends React.Component {
                         <th key={i}
                             onClick={this.sort.bind(this, i)}>
                                 {title}
-                                <If test={ this.TO.tableFields[i] !== this.props.sortProp }>
-                                    <i className="glyphicon glyphicon-sort pull-right"></i>
-                                </If>
-                                <If test={ this.TO.tableFields[i] === this.props.sortProp }>
-                                    <i className="glyphicon glyphicon-sort-by-attributes pull-right"></i>
-                                    <i className="glyphicon glyphicon-sort-by-attributes-alt pull-right"></i>
+                                <If test={ this.TO.tableFields[i] === this.props.sortState.prop }>
+                                    <i className={sortClassName}></i>
                                 </If>
                         </th>
                             );
@@ -59,27 +59,28 @@ export default class Table extends React.Component {
 
         this.state = {
             filterText: '',
-            sort: {},
+            sort: {prop: null},
             data: this.props.tableData,
             btnDisable: true,
             activePage: 1
         }
+        this.sort = this.sort.bind(this);
     }
 
     sort(i) {
         let prop = this.TO.tableFields[i];
         let desc = false;
         if( this.state ){
-            if (this.state.sort.prop === prop){
+            if (this.state.sort.prop === prop && !this.state.sort.desc){
                 desc = true;
-                prop = null;
             }
         }
 
         this.TO.sort(prop, desc);
         this.setState({
             sort: {
-                prop: prop
+                prop: prop,
+                desc: desc
             }
         })
     }
@@ -200,7 +201,7 @@ export default class Table extends React.Component {
                             tableOptions={ this.TO }
                             tableActions={ this.TA }
                             sort={ this.sort }
-                            sortProp={ this.state.sort.prop }
+                            sortState={ this.state.sort }
                         />
                         <tbody>
                         {this.generateTableRows()}
