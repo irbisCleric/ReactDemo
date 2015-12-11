@@ -5,3 +5,6 @@
 $ npm run start
 ## Starting Express server
 $ npm run server
+
+## How to install MongoDB in Ubuntu 14.04
+https://docs.mongodb.org/master/tutorial/install-mongodb-on-ubuntu/?_ga=1.229676827.667283705.1449823504
