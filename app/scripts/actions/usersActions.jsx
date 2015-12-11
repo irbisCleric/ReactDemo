@@ -32,10 +32,10 @@ export default {
             desc: desc
         })
     },
-    filterUsers:function(e){
+    filterUsers:function(val){
         appDispatcher.dispatch({
             actionType: appConstants.FILTER_USERS,
-            text: e
+            text: val
         })
     },
     toggleEditMode:function(user){

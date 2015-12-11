@@ -6,6 +6,7 @@ import { TableNavBar, RemoveSelectedRow } from './Table/TableNavBar';
 
 import If from './helpers/If';
 import usersStore from './../stores/usersStore';
+import Select from 'react-select';
 
 class TableHead extends React.Component {
     constructor(props) {
@@ -96,6 +97,22 @@ export default class Table extends React.Component {
     generateTableControls() {
         let users = usersStore.getAll();
         let selected = users.filter((item) => item.selected);
+        const getOptions = (input) => {
+            return fetch('../../../server/data/users.json')
+                .then((response) => {
+                    return response.json();
+                }).then((json) => {
+                    let result = json.map(function (user) {
+                        return {
+                            value: user.name,
+                            label: user.name.toUpperCase()
+                        }
+                    })
+                    return {
+                        options: result
+                    };
+                });
+        }
 
         return (
             <div className="row">
@@ -105,12 +122,11 @@ export default class Table extends React.Component {
                     </TableNavBar>
                 </div>
                 <div className="col-lg-3">
-                    <input
-                        type="text"
+                    <Select
+                        name="form-field-name"
                         placeholder="Search..."
-                        value={this.props.filterText}
+                        asyncOptions={getOptions}
                         onChange={this.TO.filter}
-                        className="form-control"
                     />
                 </div>
             </div>

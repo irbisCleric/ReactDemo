@@ -1,5 +1,6 @@
 import './../styles/css/bootstrap.min.css';
 import './../styles/css/bootstrap-theme.min.css';
+import './../styles/css/react-select.css';
 
 import React from 'react';
 import ReactDOM from 'react-dom'
@@ -12,6 +13,8 @@ import Catalog from './components/Catalog/Catalog';
 import User from './components/Users/User';
 import CreateUser from './components/Users/CreateUser';
 import NotFound from './components/NotFound';
+
+window.React = React;
 
 const routes = {
     path: '/',

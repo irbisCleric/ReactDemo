@@ -17,8 +17,8 @@ export default class UsersTable extends React.Component {
                 tableTitles: ['Name', 'Email'],
                 tableFields: ['name', 'email'],
                 selectable: true,
-                filter: (e) => {
-                    usersActions.filterUsers(e);
+                filter: (val) => {
+                    usersActions.filterUsers(val);
                 },
                 sort: (prop, desc) => {
                     usersActions.sortUsers(prop, desc);

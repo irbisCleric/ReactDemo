@@ -4,6 +4,7 @@ import appDispatcher from '../dispatcher/appDispatcher';
 import BaseStore from './baseStore';
 import appConstants from '../constants/appConstants';
 
+
 let modalData = {},
      originalUsers = null,
      _currentUser = null,
@@ -41,6 +42,7 @@ class userStore extends BaseStore {
             this.data = new Set(result);
             callback(result);
         });
+
     }
 
     addUser(user) {
@@ -82,9 +84,8 @@ class userStore extends BaseStore {
         this.setAll(sortedUsers);
     }
 
-    filterUsers(e) {
+    filterUsers(value) {
         let result;
-        let value = e.target.value.trim();
         
         // we just start filtering and make copy of users   
         if (!originalUsers) {

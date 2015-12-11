@@ -1,6 +1,6 @@
 var path = require('path');
 var OpenBrowserPlugin = require('open-browser-webpack-plugin');
-
+var webpack = require('webpack')
 module.exports = {
     entry: [
         'webpack-dev-server/client?http://localhost:8080/', // WebpackDevServer host and port
@@ -12,8 +12,10 @@ module.exports = {
         filename: "./build/bundle.js"
     },
     plugins: [
-        new OpenBrowserPlugin({url: 'http://localhost:8080'})
-        //new ExtractTextPlugin("[name].css")
+        new OpenBrowserPlugin({url: 'http://localhost:8080'}),
+        new webpack.ProvidePlugin({
+            'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+        }),
     ],
     module: {
         loaders: [
@@ -48,12 +50,10 @@ module.exports = {
             }
         ]
     },
-    externals: {
-        //don't bundle the 'react' npm package with our bundle.js
-        //but get it from a global 'React' variable
-        'react': 'React'
-    },
     resolve: {
         extensions: ['', '.js', '.jsx']
+    },
+    alias: {
+        react: path.resolve('./node_modules/react')
     }
 };
