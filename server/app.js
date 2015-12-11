@@ -1,11 +1,47 @@
 var express = require('express');
 var fs = require('fs');
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
 var app = express();
+mongoose.connect('mongodb://localhost/reactDB');
 
 var dataPath = {
     LIST: '/data/users.json'
 };
+
+// create a schema
+var userSchema = new Schema({
+    email: {type: String, required: true},
+    name: {type: String, required: true},
+    id: {type: String, required: true, unique: true},
+    desc: {type: String}
+});
+
+// the schema is useless so far
+// we need to create a model using it
+var User = mongoose.model('User', userSchema);
+
+var newUser = new User({
+    name: 'Vaibhavi',
+    email: 'BRomero@et.io',
+    id: '2222',
+    desc: 'lacus lacus lacus dolor. Need more details.'
+});
+
+//newUser.save(function (err) {
+//    if (err) throw err;
+//
+//    console.log('User saved successfully!');
+//});
+
+// get all the users
+User.find({}, function (err, users) {
+    if (err) throw err;
+
+    // object of all the users
+    console.log(users);
+});
 
 // CORS on ExpressJS
 app.use(function (req, res, next) {
@@ -47,7 +83,7 @@ app.get('/', function (req, res) {
 });
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
@@ -58,7 +94,7 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
+    app.use(function (err, req, res, next) {
         res.status(err.status || 500);
         res.render('error', {
             message: err.message,
@@ -69,7 +105,7 @@ if (app.get('env') === 'development') {
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
         message: err.message,
