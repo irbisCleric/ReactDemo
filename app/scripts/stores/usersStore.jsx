@@ -96,7 +96,7 @@ class userStore extends BaseStore {
             result = Array.from(originalUsers);
         }
 
-        result = result.filter((item) => (item.name.indexOf(value) !== -1));
+        result = result.filter((item) => (item.id === value));
 
         if (value === '') {
             originalUsers = null;

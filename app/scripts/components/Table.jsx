@@ -102,10 +102,11 @@ export default class Table extends React.Component {
                 .then((response) => {
                     return response.json();
                 }).then((json) => {
-                    let result = json.map(function (user) {
+                    let result = json.map(function (user, i) {
                         return {
-                            value: user.name,
-                            label: user.name.toUpperCase()
+                            value: user.id,
+                            label: user.name,
+                            key: i
                         }
                     })
                     return {
