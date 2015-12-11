@@ -86,7 +86,7 @@ class userStore extends BaseStore {
 
     filterUsers(value) {
         let result;
-        
+
         // we just start filtering and make copy of users   
         if (!originalUsers) {
             originalUsers = this.data;
@@ -96,10 +96,8 @@ class userStore extends BaseStore {
             result = Array.from(originalUsers);
         }
 
-        result = result.filter((item) => (item.id === value));
-
-        if (value === '') {
-            originalUsers = null;
+        if (value !== "all"){
+            result = result.filter((item) => (item.id === value));
         }
 
         this.setAll(result);

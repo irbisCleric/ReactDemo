@@ -109,6 +109,9 @@ export default class Table extends React.Component {
                             key: i
                         }
                     })
+
+                    result.unshift({value: 'all', label: 'All'})
+
                     return {
                         options: result
                     };
