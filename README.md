@@ -9,4 +9,12 @@ $ npm run server
 ## How to install MongoDB in Ubuntu 14.04
 https://docs.mongodb.org/master/tutorial/install-mongodb-on-ubuntu/?_ga=1.229676827.667283705.1449823504
 
-Previously you need to create DB "reactDB"
+### Previously you need to create DB "reactDB"
+$ mongo
+
+$ use reactDB;
+
+exit
+
+### For importing collection use command
+$ mongoimport --db reactDB --collection users --file server/data/usersPreparedForImport.json

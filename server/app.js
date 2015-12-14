@@ -22,17 +22,17 @@ var userSchema = new Schema({
 // we need to create a model using it
 var User = mongoose.model('User', userSchema);
 
-var newUser = new User({
-    name: 'Vaibhavi',
-    email: 'BRomero@et.io',
-    id: '2222',
-    desc: 'lacus lacus lacus dolor. Need more details.'
-});
+//var newUser = new User({
+//    name: 'Vaibhavi',
+//    email: 'BRomero@et.io',
+//    id: '2222',
+//    desc: 'lacus lacus lacus dolor. Need more details.'
+//});
 
 //newUser.save(function (err) {
 //    if (err) throw err;
 //
-//    console.log('User saved successfully!');
+//    console.log('User sreaved successfully!');
 //});
 
 // get all the users
