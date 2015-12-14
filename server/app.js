@@ -36,12 +36,28 @@ var User = mongoose.model('User', userSchema);
 //});
 
 // get all the users
-User.find({}, function (err, users) {
-    if (err) throw err;
-
-    // object of all the users
-    console.log(users);
-});
+var users = {
+    // read collection from MongoDB
+    getAll: function () {
+        return (
+            User
+                .find({}, function (err, users) {
+                    if (err) next(err);
+                    // object of all the users
+                    //callback(users);
+                    return users;
+                })
+        );
+    },
+    // read sync
+    getAllFromJSON: function (filepath, encoding) {
+        if (typeof (encoding) == 'undefined') {
+            encoding = 'utf8';
+        }
+        var file = fs.readFileSync(filepath, encoding);
+        return JSON.parse(file);
+    }
+};
 
 // CORS on ExpressJS
 app.use(function (req, res, next) {
@@ -50,32 +66,34 @@ app.use(function (req, res, next) {
     next();
 });
 
-function readJsonFileSync(filepath, encoding) {
-
-    if (typeof (encoding) == 'undefined') {
-        encoding = 'utf8';
-    }
-    var file = fs.readFileSync(filepath, encoding);
-    return JSON.parse(file);
-}
-
+/**
+ * get users list
+ */
 app.get('/api/list', function (req, res) {
-    var jsonData = readJsonFileSync(__dirname + dataPath.LIST, 'utf-8');
-
-    res.contentType('application/json');
-    res.send(jsonData);
+    //var jsonData = users.getAllFromJSON(__dirname + dataPath.LIST, 'utf-8');
+    users
+        .getAll()
+        .then(function (data) {
+            res.contentType('application/json');
+            res.send(data);
+        });
 });
 
+/**
+ * get single user
+ */
 app.get('/api/list/:user_id', function (req, res) {
-    var jsonData = readJsonFileSync(__dirname + dataPath.LIST, 'utf-8');
-    res.contentType('application/json');
-
-    jsonData.forEach(function (userObj) {
-        if (userObj.id === Number(req.params.user_id)) {
-            res.contentType('application/json');
-            res.send(userObj);
-        }
-    });
+    //var jsonData = users.getAllFromJSON(__dirname + dataPath.LIST, 'utf-8');
+    users
+        .getAll()
+        .then(function (data) {
+            data.forEach(function (userObj) {
+                if (userObj.id === req.params.user_id) {
+                    res.contentType('application/json');
+                    res.send(userObj);
+                }
+            });
+        });
 });
 
 app.get('/', function (req, res) {
@@ -119,5 +137,3 @@ var server = app.listen(1715, function () {
 
     console.log('Example app listening at http://%s:%s', host, port);
 });
-
-module.exports = app;
