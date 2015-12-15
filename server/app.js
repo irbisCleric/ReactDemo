@@ -31,7 +31,6 @@ var User = mongoose.model('User', userSchema);
 
 //newUser.save(function (err) {
 //    if (err) throw err;
-//
 //    console.log('User sreaved successfully!');
 //});
 
