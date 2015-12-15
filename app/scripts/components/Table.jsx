@@ -18,9 +18,11 @@ class TableHead extends React.Component {
 
     render() {
         let sortClassName = 'pull-right glyphicon glyphicon-sort-by-attributes';
-        if (this.props.sortState.desc){
-            sortClassName += '-alt';
+
+        if (this.props.sortState.desc) {
+            sortClassName = 'pull-right glyphicon glyphicon-sort-by-attributes-alt';
         }
+
         return (
             <thead>
             <tr>
@@ -28,16 +30,19 @@ class TableHead extends React.Component {
                 <th>
                     <input type="checkbox" onChange={ this.TA.handleSelectAll.bind(this) }/>
                 </th>
-                    : null}
+                    : null }
                 {
                     this.TO.tableTitles.map((title, i) => {
                         return (
                         <th key={i}
                             onClick={this.sort.bind(this, i)}>
-                                {title}
-                                <If test={ this.TO.tableFields[i] === this.props.sortState.prop }>
-                                    <i className={sortClassName}></i>
-                                </If>
+                            {title}
+                            <If test={ this.TO.tableFields[i] !== this.props.sortState.prop }>
+                                <i className='pull-right glyphicon glyphicon-sort'></i>
+                            </If>
+                            <If test={ this.TO.tableFields[i] === this.props.sortState.prop }>
+                                <i className={sortClassName}></i>
+                            </If>
                         </th>
                             );
                         })
