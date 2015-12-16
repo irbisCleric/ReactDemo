@@ -1,38 +1,22 @@
 var express = require('express');
 var fs = require('fs');
+var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var app = express();
 mongoose.connect('mongodb://localhost/reactDB');
 
+app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+    extended: true
+}));
+
 var dataPath = {
     LIST: '/data/users.json'
 };
 
-// create a schema
-var userSchema = new Schema({
-    email: {type: String, required: true},
-    name: {type: String, required: true},
-    id: {type: String, required: true, unique: true},
-    desc: {type: String}
-});
-
-// the schema is useless so far
-// we need to create a model using it
-var User = mongoose.model('User', userSchema);
-
-//var newUser = new User({
-//    name: 'Vaibhavi',
-//    email: 'BRomero@et.io',
-//    id: '2222',
-//    desc: 'lacus lacus lacus dolor. Need more details.'
-//});
-
-//newUser.save(function (err) {
-//    if (err) throw err;
-//    console.log('User sreaved successfully!');
-//});
+var User = require('./models/user');
 
 // get all the users
 var users = {
@@ -42,9 +26,8 @@ var users = {
             User
                 .find({}, function (err, users) {
                     if (err) next(err);
-                    // object of all the users
-                    //callback(users);
-                    return users;
+
+                    return users; // object of all the users
                 })
         );
     },
@@ -69,7 +52,6 @@ app.use(function (req, res, next) {
  * get users list
  */
 app.get('/api/list', function (req, res) {
-    //var jsonData = users.getAllFromJSON(__dirname + dataPath.LIST, 'utf-8');
     users
         .getAll()
         .then(function (data) {
@@ -81,8 +63,7 @@ app.get('/api/list', function (req, res) {
 /**
  * get single user
  */
-app.get('/api/list/:user_id', function (req, res) {
-    //var jsonData = users.getAllFromJSON(__dirname + dataPath.LIST, 'utf-8');
+app.get('/api/user/:user_id', function (req, res) {
     users
         .getAll()
         .then(function (data) {
@@ -94,6 +75,22 @@ app.get('/api/list/:user_id', function (req, res) {
             });
         });
 });
+
+app.post('/api/user/create', function (req, res) {
+    var user = new User();      // create a new instance of the User model
+
+    user.name = req.body.name;
+    user.email = req.body.email;
+    user.id = Math.floor(Date.now() / 1000);
+
+    // save the user and check for errors
+    user.save(function (err) {
+        if (err) res.send(err);
+        res.json({message: 'User created!'});
+    });
+});
+
+
 
 app.get('/', function (req, res) {
     res.send('Hello React server');

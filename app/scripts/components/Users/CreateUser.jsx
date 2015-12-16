@@ -21,7 +21,15 @@ export default class CreateUser extends React.Component {
     handleSubmit(e) {
         //e.preventDefault();
         usersActions.addUser(this.state.user);
-        this.setState({user: {}});
+
+        let url = 'http://localhost:1715/api/user/create';
+
+        $.post(url, this.state.user)
+            .done(function (data) {
+                console.log('POST end = ', data);
+            });
+
+        this.setState({user: {}}); // redirect to user page
         this.props.history.pushState(null, 'users');
     }
 

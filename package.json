@@ -4,6 +4,7 @@
   "description": "First try of React",
   "main": "app.jsx",
   "dependencies": {
+    "body-parser": "^1.14.1",
     "exports-loader": "^0.6.2",
     "express": "^4.13.3",
     "flux": "^2.1.1",

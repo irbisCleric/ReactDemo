@@ -14,7 +14,7 @@ export default class User extends React.Component {
             }
         };
         //let url = "http://www.filltext.com/?rows=1&description={lorem|20}&name={firstName}&age={number|80}&phone={phone}";
-        let url = "http://localhost:1715/api/list/" + props.params.id;
+        let url = "http://localhost:1715/api/user/" + props.params.id;
         //$.get(url, (result) => this.setState({user: result}));
         $.get(url, (result) => {
             Object.assign(this.state.user, result);
