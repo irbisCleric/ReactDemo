@@ -1,4 +1,4 @@
-# ReactJS Demo project
+# Estonia Test task project
 
 ## Starting webpack server
 (before running don't forget to run $npm install & npm update)
