@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Basic Property Grid</title>
-    <!-- include react -->
-    <script src="./node_modules/react/dist/react-with-addons.js"></script>
+    <title>Application page</title>
     <link href="./favicon.ico" rel="icon" type="image/x-icon">
 </head>
-<body>
-    <div id="app">
+<body ng-app="mainApp">
+    <div class="container">
+        <ui-view></ui-view>
+    </div>
         <!-- this is where the root react component will get rendered -->
     </div>
     <!-- include the webpack-dev-server script so our scripts get reloaded when we make a change -->

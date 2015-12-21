@@ -1,11 +1,13 @@
 {
-  "name": "reactdemo",
+  "name": "EstoniaApp",
   "version": "1.0.0",
-  "description": "First try of React",
-  "main": "app.jsx",
+  "description": "Test task",
+  "main": "index.js",
   "dependencies": {
     "angular": "^1.4.8",
+    "angular-ui-router": "^0.2.15",
     "body-parser": "^1.14.1",
+    "bootstrap": "^3.3.6",
     "exports-loader": "^0.6.2",
     "express": "^4.13.3",
     "imports-loader": "^0.6.5",
@@ -20,11 +22,11 @@
     "css-loader": "^0.23.0",
     "file-loader": "^0.8.5",
     "http-server": "~0.7.1",
-    "jsx-loader": "~0.11.2",
     "node-libs-browser": "^0.5.2",
     "node-sass": "^3.4.2",
     "object-assign": "^1.0.0",
     "open-browser-webpack-plugin": "0.0.1",
+    "raw": "^0.1.4",
     "react-hot-loader": "^1.2.7",
     "sass-loader": "^3.1.2",
     "style-loader": "^0.13.0",
@@ -44,9 +46,8 @@
     "url": "git+ssh://git@bitbucket.org/y_budachov/reactdemo.git"
   },
   "keywords": [
-    "react",
-    "demo",
-    "try"
+    "angular",
+    "test task"
   ],
   "author": "Yevhen Budachov, Sergii Kokhan",
   "license": "ISC",

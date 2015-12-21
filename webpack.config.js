@@ -1,11 +1,12 @@
 var path = require('path');
 var OpenBrowserPlugin = require('open-browser-webpack-plugin');
-var webpack = require('webpack')
+var webpack = require('webpack');
+
 module.exports = {
     entry: [
         'webpack-dev-server/client?http://localhost:8080/', // WebpackDevServer host and port
         'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
-        './app/scripts/index.jsx' // Your appʼs entry point
+        './app/scripts/index.js' // Your appʼs entry point
     ],
     output: {
         path: __dirname,
@@ -15,22 +16,16 @@ module.exports = {
         new OpenBrowserPlugin({url: 'http://localhost:8080'}),
         new webpack.ProvidePlugin({
             'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
-        }),
+        })
     ],
     module: {
         loaders: [
-            // JSX
+            // JS
             {
-                test: /\.jsx?$/,
-                loaders: ['react-hot', 'babel'],
+                test: /\.js?$/,
+                loader: 'babel?optional=runtime',
                 exclude: /node_modules/
             },
-            {
-                test: /\.jsx$/,
-                exclude: /node_modules/,
-                loader: 'babel-loader'
-            },
-
             // SASS
             {
                 test: /\.scss$/,
@@ -42,7 +37,13 @@ module.exports = {
                 test: /\.css$/,
                 loader: 'style-loader!css-loader'
             },
-
+            {
+                // HTML LOADER
+                // Reference: https://github.com/webpack/raw-loader
+                // Allow loading html through js
+                test: /\.html$/,
+                loader: 'raw'
+            },
             // ICON FONTS
             {
                 test: /.(png|woff(2)?|eot|ttf|svg)(\?[a-z0-9=\.]+)?$/,
@@ -51,9 +52,6 @@ module.exports = {
         ]
     },
     resolve: {
-        extensions: ['', '.js', '.jsx']
-    },
-    alias: {
-        react: path.resolve('./node_modules/react')
+        extensions: ['', '.js']
     }
 };
